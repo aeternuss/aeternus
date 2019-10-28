@@ -1,3 +1,3 @@
-# Docs
+# Aeternus
 
-> An awesome project.
+> Site that records personal notes.
