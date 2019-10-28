@@ -1,2 +1,3 @@
-# aeternus
-note on gitbook
+# Docs
+
+> An awesome project.
