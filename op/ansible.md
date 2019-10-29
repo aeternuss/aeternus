@@ -2,12 +2,11 @@
 
 Simple, agentless IT automation.
 
-Inventory
-=========
+## Inventory
 
 hosts, groups, vars:
 
-``` {.sourceCode .yaml}
+```yaml
 all:
   vars:
     var_a: value_a
@@ -25,13 +24,11 @@ all:
      group_b:
 ```
 
-Playbook
-========
+## Playbook
 
-| Describe a policy you want your remote systems to enforce,
-| or a set of steps in a general IT process.
+Describe a policy you want your remote systems to enforce, or a set of steps in a general IT process.
 
-``` {.sourceCode .bash}
+```
 production                # inventory file for production servers
 staging                   # inventory file for staging environment
 
@@ -76,7 +73,7 @@ roles/
   fooapp/                 # ""
 ```
 
-``` {.sourceCode .bash}
+```
 inventories/
   production/
     hosts              # inventory file for production servers
@@ -111,45 +108,35 @@ roles/
     fooapp/
 ```
 
-Variables
-=========
+## Variables
 
 Defining variables in:
 
--   inventory
--   playbook
--   included files and roles
--   files (vars\_files)
+- inventory
+- playbook
+- included files and roles
+- files (vars\_files)
 
-Filters
-=======
+## Filters
 
 Used for transforming data inside a template expression.
 
-Tests
-=====
+## Tests
 
-test:
+test: `Variable is test_name`
 
-    Variable is test_name
-
-Lookups
-=======
+## Lookups
 
 Access to outside data sources.
 
-Conditionals
-============
+## Conditionals
 
-Loops
-=====
+## Loops
 
-Blocks
-======
+## Blocks
 
--   block
--   rescue
--   always
+- block
+- rescue
+- always
 
-Vault
-=====
+## Vault

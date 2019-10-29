@@ -5,13 +5,13 @@ Let's Encrypt certificates on manually-administrated websites to enable HTTPS.
 
 ## Installation
 
-```shell
+```bash
 dnf install certbot
 ```
 
 ## Command
 
-```shell
+```bash
 -------------------------------------------------------------------------------
 
   certbot [SUBCOMMAND] [options] [-d DOMAIN] [-d DOMAIN] ...

@@ -1,37 +1,30 @@
-Docsify
-=======
+# Docsify
 
 A magical documentation site generator.
 
-Installation
-------------
+## Installation
 
 `npm i docsify-cli -g`
 
-Initialize
-----------
+## Initialize
 
 `docsify init ./docs`
 
-Writing
--------
+## Writing
 
-After the init is complete, you can see the file list in the ./docs
-subdirectory.
+After the init is complete, you can see the file list in the ./docs subdirectory.
 
--   `index.html` as the entry file
--   `README.md` as the home page
--   `.nojekyll` prevents GitHub Pages from ignoring files that begin
-    with an underscore
+- `index.html` as the entry file
+- `README.md` as the home page
+- `.nojekyll` prevents GitHub Pages from ignoring files that begin with an underscore
 
-Sidebar
--------
+### Sidebar
 
 In order to have sidebar, then you can create your own `_sidebar.md`.
 
 First, you need to set `loadSidebar` to true.
 
-``` {.sourceCode .html}
+```html
 <!-- index.html -->
 
 <script>
@@ -44,20 +37,19 @@ First, you need to set `loadSidebar` to true.
 
 Create the `_sidebar.md`:
 
-``` {.sourceCode .html}
+```html
 <!-- docs/_sidebar.md -->
 
 * [Home](/)
 * [Guide](guide.md)
 ```
 
-Navbar
-------
+### Navbar
 
 You can create a custom markdown-based navigation file by setting
 `loadNavbar` to true and creating `_navbar.md`.
 
-``` {.sourceCode .html}
+```html
 <!-- index.html -->
 
 <script>
@@ -70,7 +62,7 @@ You can create a custom markdown-based navigation file by setting
 
 Create the `_navbar.md`:
 
-``` {.sourceCode .html}
+```html
 <!-- _navbar.md -->
 
 * [En](/)
@@ -81,14 +73,13 @@ Create the `_navbar.md`:
  * [Writing more pages](more-pages.md)
 ```
 
-Cover
------
+### Cover
 
 Activate the cover feature by setting `coverpage` to true.
 
-Set coverpage to true, and create a \_coverpage.md:
+Set coverpage to true, and create a `_coverpage.md`:
 
-``` {.sourceCode .html}
+```html
 <!-- index.html -->
 
 <script>
@@ -99,7 +90,7 @@ Set coverpage to true, and create a \_coverpage.md:
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 ```
 
-``` {.sourceCode .html}
+```html
 <!-- _coverpage.md -->
 
 ![logo](_media/icon.svg)

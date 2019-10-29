@@ -1,167 +1,91 @@
 # Open Source Tools
 
-自动化构建
-
-Apache Ant – 用 Java 编写的自动化构建工具，与 make 类似
-
-Apache Maven – 主要为 Java 开发的自动化构建工具
-
-Bazel – Google 的分布式构建系统
-
-GNU Make – 最流行的自动化构建系统
-
-Gradle – 另一个自动化构建系统
-
-Backup software.
-
-备份软件
-
-Amanda – C/S 模式的备份软件
-
-Attic – 用 Python 编写的去重备份程序
-
-Bareos – Bacula 备份程序的衍生版本
-
-Backupninja – 轻量级、可扩展的元数据备份
-
-Brebis – 全自动的备份检查
-
-Burp – 网络备份和还原程序
-
-Duplicity – 使用 rsync 算法加密的带宽-效率备份软件
-
-Elkarbackup – 基于 RSnapshot 的、带有简单 Web 交互接口的备份解决方案
-
-Lsyncd – 对文件进行监控，并开启一个进程来同步更改（默认是用 rsync）
-
-Obnam – 一个简便、安全、基于快照、带有数据备份程序
-
-Rdiff-backup – 远程增量备份工具
-
-Rsnapshot – 文件系统快照辅助工具
-
-Snebu – 带有多客户端去重和透明压缩的快照备份程序
-
-UrBackup – 另一个 C/S 备份系统
-
-DREBS – 官方策略支持的 AWS EBS 备份脚本
-
-ZBackup – 一个通用去重备份工具
-
-Build and software organization tools
-
-构建和软件安排
-
-EasyBuild – EasyBuild builds software and modulefiles for High
-Performance Computing (HPC) systems in an efficient way.
-
-environment-modules Lmod – Lmod is a Lua based module system that easily
-handles the MODULEPATH Hierarchical problem.
-
-HPCBIOS – HPCBIOS is an effort to setup a common, well-documented and
-reproducible, environment spanning across multiple HPC systems & sites,
-inclusive of documentation.
-
-ChatOps
-
-运维机器人
-
-对话驱动的运维和管理。请看 reddit 查看更多信息
-
--   CloudBot – Python 编写的简单、快速、可扩展的 IRC 机器人
--   Eggdrop – the world’s most popular IRC bot, designed for flexibility
-    and ease of use, and is freely distributable under the GNU GPL.
--   Err – a plugin based chatbot designed to be easily deployable,
-    extensible and maintainable.
--   Hubot – 可定制的、生活改良型机器人
--   Lazlo – 用 Go 编写的运维机器人自动化框架
--   Lita – 你公司的聊天室的机器人同伴
-
-Client management
-
-客户端管理
-
-OCS Inventory NG – 资产管理、部署和网络扫描
-
-Opsi (开放式 PC 服务器集合) – 运行于 Debian 专为 Windows
-客户端开发的客户端管理软件
-
-WAPT – 全网范围的 Windows 软件安装、卸载、配置和升级
-
-WPKG – Windows 程序的部署、升级和移除
-
-Cloning
-
-克隆软件
-
-Clonezilla – 硬盘分区、硬盘镜像/克隆程序
-
-Fog – 另一个计算机克隆问题解决方案
-
-Cloud Computing
-
-云计算
-
-AppScale – 兼容 GAE 的云计算软件
-
-Archipel – Manage and supervise virtual machines using Libvirt.
-
-CloudStack – Cloud computing software for creating, managing, and
-deploying infrastructure cloud services.
-
-Cobbler – Cobbler is a Linux installation server that allows for rapid
-setup of network installation environments.
-
-Cracow Cloud One – Polish Private Cloud – The CC1 system provides a
-complete solution for Private Cloud Computing.
-
-Eucalyptus – Private cloud software with AWS compatibility.
-
-Flynn – PaaS
-
-Mesos – Develop and run resource-efficient distributed systems.
-
-OpenNebula – User-driven cloud management platform for sysadmins and
-devops.
-
-Openshift – PaaS product from Red Hat.
-
-OpenStack – 构建你的私有或共有云
-
-The Foreman – 面向物理和虚拟服务器的全生命周期管理工具
-
-Tsuru – Tsuru is an extensible Platform as a Service software.
-
-Cloud Orchestration
-
-云业务流程
-
-BOSH – IaaS orchestration platform originally written for deploying and
-managing Cloud Foundry PaaS, but also useful for general purpose
-distributed systems.
-
-Cloudify – 使用 Python 和 YAML 编写，基于 TOSCA 的云业务流程软件平台
-
-CloudSlang – 面向管理开发应用程序、基于流的业务流程管理工具，支持 Docker
-
-Juju – Cloud orchestration tool which manages services as charms, YAML
-configuration and deployment script bundles.
-
-MCollective – 用于管理服务器的业务流程的 Ruby 框架，由 Puppet 实验室开发
-
-Overcast – Deploy VMs across different cloud providers, and run commands
-and scripts across any or all of them in parallel via SSH.
-
-Rundeck – 简单的业务流程工具
-
-Salt – 用 Python/ZeroMQ 编写的快速、可扩展、灵活的系统管理软件
-
-StackStorm – Event Driven Operations and ChatOps platform for
-infrastructure management. Written in Python
-
-Cloud Storage
-
-云存储
+## 自动化构建
+
+* Apache Ant – 用 Java 编写的自动化构建工具，与 make 类似
+* Apache Maven – 主要为 Java 开发的自动化构建工具
+* Bazel – Google 的分布式构建系统
+* GNU Make – 最流行的自动化构建系统
+* Gradle – 另一个自动化构建系统
+* Backup software.
+
+## 备份软件
+
+* Amanda – C/S 模式的备份软件
+* Attic – 用 Python 编写的去重备份程序
+* Bareos – Bacula 备份程序的衍生版本
+* Backupninja – 轻量级、可扩展的元数据备份
+* Brebis – 全自动的备份检查
+* Burp – 网络备份和还原程序
+* Duplicity – 使用 rsync 算法加密的带宽-效率备份软件
+* Elkarbackup – 基于 RSnapshot 的、带有简单 Web 交互接口的备份解决方案
+* Lsyncd – 对文件进行监控，并开启一个进程来同步更改（默认是用 rsync）
+* Obnam – 一个简便、安全、基于快照、带有数据备份程序
+* Rdiff-backup – 远程增量备份工具
+* Rsnapshot – 文件系统快照辅助工具
+* Snebu – 带有多客户端去重和透明压缩的快照备份程序
+* UrBackup – 另一个 C/S 备份系统
+* DREBS – 官方策略支持的 AWS EBS 备份脚本
+* ZBackup – 一个通用去重备份工具
+* Build and software organization tools
+
+## 构建和软件安排
+
+* EasyBuild – EasyBuild builds software and modulefiles for High
+* Performance Computing (HPC) systems in an efficient way.
+* environment-modules Lmod – Lmod is a Lua based module system that easily handles the MODULEPATH Hierarchical problem.
+* HPCBIOS – HPCBIOS is an effort to setup a common, well-documented and reproducible, environment spanning across multiple HPC systems & sites, inclusive of documentation.
+
+## 运维机器人
+
+- CloudBot – Python 编写的简单、快速、可扩展的 IRC 机器人
+- Eggdrop – the world’s most popular IRC bot, designed for flexibility and ease of use, and is freely distributable under the GNU GPL.
+- Err – a plugin based chatbot designed to be easily deployable, extensible and maintainable.
+- Hubot – 可定制的、生活改良型机器人
+- Lazlo – 用 Go 编写的运维机器人自动化框架
+- Lita – 你公司的聊天室的机器人同伴
+
+## 客户端管理
+
+- OCS Inventory NG – 资产管理、部署和网络扫描
+- Opsi (开放式 PC 服务器集合) – 运行于 Debian 专为 Windows 客户端开发的客户端管理软件
+- WAPT – 全网范围的 Windows 软件安装、卸载、配置和升级
+- WPKG – Windows 程序的部署、升级和移除
+
+## 克隆软件
+
+- Clonezilla – 硬盘分区、硬盘镜像/克隆程序
+- Fog – 另一个计算机克隆问题解决方案
+
+## 云计算
+
+- AppScale – 兼容 GAE 的云计算软件
+- Archipel – Manage and supervise virtual machines using Libvirt.
+- CloudStack – Cloud computing software for creating, managing, and deploying infrastructure cloud services.
+- Cobbler – Cobbler is a Linux installation server that allows for rapid setup of network installation environments.
+- Cracow Cloud One – Polish Private Cloud – The CC1 system provides a complete solution for Private Cloud Computing.
+- Eucalyptus – Private cloud software with AWS compatibility.
+- Flynn – PaaS
+- Mesos – Develop and run resource-efficient distributed systems.
+- OpenNebula – User-driven cloud management platform for sysadmins and devops.
+- Openshift – PaaS product from Red Hat.
+- OpenStack – 构建你的私有或共有云
+- The Foreman – 面向物理和虚拟服务器的全生命周期管理工具
+- Tsuru – Tsuru is an extensible Platform as a Service software.
+
+## 云业务流程
+
+- BOSH – IaaS orchestration platform originally written for deploying and managing Cloud Foundry PaaS, but also useful for general purpose distributed systems.
+- Cloudify – 使用 Python 和 YAML 编写，基于 TOSCA 的云业务流程软件平台
+- CloudSlang – 面向管理开发应用程序、基于流的业务流程管理工具，支持 Docker
+- Juju – Cloud orchestration tool which manages services as charms, YAML configuration and deployment script bundles.
+- MCollective – 用于管理服务器的业务流程的 Ruby 框架，由 Puppet 实验室开发
+- Overcast – Deploy VMs across different cloud providers, and run commands and scripts across any or all of them in parallel via SSH.
+- Rundeck – 简单的业务流程工具
+- Salt – 用 Python/ZeroMQ 编写的快速、可扩展、灵活的系统管理软件
+- StackStorm – Event Driven Operations and ChatOps platform for infrastructure management. Written in Python
+
+## 云存储
 
 git-annex assistant – 你全部设备的同步文件夹（包括你的 OSX 、 Linux
 、安卓设备 、可移动设备 、NAS 、 NAS 应用、 云服务）

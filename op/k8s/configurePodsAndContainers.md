@@ -1,17 +1,16 @@
 # Kubernetes - Configure Pods and Containers
 
--   Extended Resources
--   Security Context
--   Service Accounts
--   Liveness and Readiness
--   postStart and preStop handlers
--   Share Process Namespace
--   Kompose
+- Extended Resources
+- Security Context
+- Service Accounts
+- Liveness and Readiness
+- postStart and preStop handlers
+- Share Process Namespace
+- Kompose
 
-Security Context
-================
+## Security Context
 
-``` {.sourceCode .yaml}
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -29,10 +28,9 @@ spec:
       level: "s0:c123,c456"
 ```
 
-Liveness and Readiness
-======================
+## Liveness and Readiness
 
-``` {.sourceCode .yaml}
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -70,10 +68,9 @@ spec:
         periodSeconds: 20
 ```
 
-postStart and preStop handlers
-==============================
+## postStart and preStop handlers
 
-``` {.sourceCode .yaml}
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:

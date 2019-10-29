@@ -1,22 +1,19 @@
 # Ansible - Tips
 
-Local Connection
-================
+## Local Connection
 
-``` {.sourceCode .yaml}
+```yaml
 - hosts: 127.0.0.1
   connection: local
   name: ...
   ...
 ```
 
-When
-====
+## When
 
-file exists
------------
+### file exists
 
-``` {.sourceCode .yaml}
+```yaml
 - name: check file exists
   stat:
     path: /path/to/file
@@ -27,10 +24,9 @@ file exists
   when: not file_exists.exists
 ```
 
-result changed
---------------
+### result changed
 
-``` {.sourceCode .yaml}
+```yaml
 - name: step one
   ...
   register: step_one
@@ -40,12 +36,11 @@ result changed
   when: step_one.changed
 ```
 
-Blocks
-======
+## Blocks
 
 Blocks allow for logical grouping of tasks and in play error handling.
 
-``` {.sourceCode .yaml}
+```yaml
 tasks:
 - name: Install, configure, and start Apache
   block:
@@ -68,10 +63,9 @@ tasks:
   when: ansible_facts['distribution'] == 'CentOS'
 ```
 
-changed\_when
-=============
+## changed_when
 
-``` {.sourceCode .yaml}
+```yaml
 - name: tasks always no change
   ...
   changed_when: false

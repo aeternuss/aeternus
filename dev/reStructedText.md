@@ -1,26 +1,22 @@
-ReStructedText
-==============
+# ReStructedText
 
-Link
-----
+## Link
 
-``` {.sourceCode .rst}
+```rst
 `Title <http://link>`_
 ```
 
-Hyperlink Targets
------------------
+## Hyperlink Targets
 
-``` {.sourceCode .rst}
+```rst
 External hyperlinks, like Python_.
 
 .. _Python: http://www.python.org/
 ```
 
-Table
------
+## Table
 
-``` {.sourceCode .rst}
+```rst
 .. csv-table::
    :header: h1, h2, h3
 
@@ -28,26 +24,23 @@ Table
    c1l2, c2l2, c3l3
 ```
 
-Section Number
---------------
+## Section Number
 
-``` {.sourceCode .rst}
+```rst
 .. sectnum::
 ```
 
-Define
-------
+## Define
 
-``` {.sourceCode .rst}
+```rst
 define::
 
    documents
 ```
 
-Footnotes
----------
+## Footnotes
 
-``` {.sourceCode .rst}
+```rst
 Autonumbered footnotes are
 possible, like using [#]_ and [#]_.
 
@@ -63,11 +56,7 @@ labels' - for instance,
 .. [#fourth] a.k.a. fourth_
 ```
 
-Refenrence
-----------
+## Refenrence
 
--   [Quick
-    reStructuredText](http://docutils.sourceforge.net/docs/user/rst/quickref.html)
--   [reStructuredText
-    Directives](http://docutils.sourceforge.net/docs/ref/rst/directives.html)
-
+- [Quick reStructuredText](http://docutils.sourceforge.net/docs/user/rst/quickref.html)
+- [reStructuredText Directives](http://docutils.sourceforge.net/docs/ref/rst/directives.html)

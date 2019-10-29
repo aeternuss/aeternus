@@ -6,13 +6,11 @@
 > Currently, **secret, configMap, downwardAPI, and serviceAccountToken**
 > volumes can be projected.
 
-Configure a projected volume for a pod
-======================================
+## Configure a projected volume for a pod
 
-This example pod has two file named username, password in directory
-/projected-volume.
+This example pod has two file named username, password in directory projected-volume.
 
-``` {.sourceCode .yaml}
+```yaml
 apiVersion: v1
 kind: Secret
 metadata:

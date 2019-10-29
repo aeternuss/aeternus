@@ -1,33 +1,29 @@
 # CentOS - Change Repo
 
-CentOS Base
-===========
+## CentOS Base
 
-``` {.sourceCode .bash}
+```bash
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 ```
 
-EPEL
-====
+## EPEL
 
-``` {.sourceCode .bash}
+```bash
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 ```
 
-Docker-ce
-=========
+## Docker-ce
 
-``` {.sourceCode .bash}
+```bash
 yum install -y yum-utils device-mapper-persistent-data lvm2
 swapoff -a && sed -i '/ swap / s/^/#/' /etc/fstab
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 ```
 
-Kubernetes
-==========
+## Kubernetes
 
-``` {.sourceCode .bash}
+```bash
 cat <<EOF > /etc/yum.repos.d/kubernets.repo
 [kubernets]
 name=Kubernets
@@ -41,14 +37,12 @@ EOF
 setenforce 0
 ```
 
-Update
-======
+## Update
 
-``` {.sourceCode .bash}
+```bash
 yum clean all && yum makecache
 ```
 
-Reference
-=========
+## Reference
 
--   [阿里云镜像中心](https://opsx.alibaba.com/mirror)
+- [阿里云镜像中心](https://opsx.alibaba.com/mirror)
