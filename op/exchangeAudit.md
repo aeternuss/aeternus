@@ -10,23 +10,23 @@ executed as PowerShell commands.
 
 With the Exchange administrator audit log you can detect:
 
--   Exports of mailboxes
--   Copies of entire mailbox databases
--   Security configuration changes to Exchange
--   Access control changes to groups, roles, and permissions
--   Modifications to Exchange policies involving retention, mobile
-    device policy, information rights management, federation, and more
+- Exports of mailboxes
+- Copies of entire mailbox databases
+- Security configuration changes to Exchange
+- Access control changes to groups, roles, and permissions
+- Modifications to Exchange policies involving retention, mobile
+  device policy, information rights management, federation, and more
 
-Configuration
-=============
+## Configuration
 
 In Exchange, all administrative, configuration and policy operations are
 ultimately performed via PowerShell cmdlet:
 
-    Set-AdminAuditLogConfig -AdminAuditLogEnabled $true -AdminAuditLogCmdlets * -AdminAuditLogAgeLimit 120.00:00:00
+```powershell
+Set-AdminAuditLogConfig -AdminAuditLogEnabled $true -AdminAuditLogCmdlets * -AdminAuditLogAgeLimit 120.00:00:00
+```
 
-Storage
-=======
+## Storage
 
 The Exchange administrator audit log is not a normal text file based log
 or a Windows event log.
@@ -34,27 +34,25 @@ or a Windows event log.
 Administrator audit log events are stored as email messages inside a
 special audit mailbox.
 
-Query
-=====
+## Query
 
--   Search-AdminAuditLog:
+- Search-AdminAuditLog:
+  ```powershell
+  Search-AdminAuditLog  -Cmdlets New-SendConnector -StartDate 10/07/2015 -EndDate 11/1/2015
+  ```
 
-        Search-AdminAuditLog  -Cmdlets New-SendConnector -StartDate 10/07/2015 -EndDate 11/1/2015
+- New-AdminAuditLogSearch:
 
--   New-AdminAuditLogSearch:
+  ```powershell
+  New-AdminAuditLogSearch -Name "Mailbox Changes" -Cmdlets Set-Mailbox -StartDate 10/07/2015 -EndDate 11/01/2015 -StatusMailRecipients mailbox@example.com
+  ```
 
-        New-AdminAuditLogSearch -Name "Mailbox Changes" -Cmdlets Set-Mailbox -StartDate 10/07/2015 -EndDate 11/01/2015 -StatusMailRecipients mailbox@example.com
-
-LOGbinder for Exchange
-======================
+## LOGbinder for Exchange
 
 Exchange logs collection tool.
 
-:   [LOGbinder for
-    Exchange™](https://www.logbinder.com/products/logbinderex/)
+- [LOGbinder for Exchange](https://www.logbinder.com/products/logbinderex/)
 
-Reference
-=========
+## Reference
 
--   [Exchange Administrator Audit
-    Logging](https://www.ultimatewindowssecurity.com/exchange/adminaudit/default.aspx)
+- [Exchange Administrator Audit Logging](https://www.ultimatewindowssecurity.com/exchange/adminaudit/default.aspx)

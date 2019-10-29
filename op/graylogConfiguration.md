@@ -1,19 +1,17 @@
 # Graylog Configuration
 
-Windows Event Logs
-==================
+## Windows Event Logs
 
 Collect event logs from windows server, using `winlogbeat`.
 
 Audit windows event logs for:
 
--   Logon/Logoff events
--   Object deleted events
--   AD/Object created events
--   Printed job events
+- Logon/Logoff events
+- Object deleted events
+- AD/Object created events
+- Printed job events
 
-Windows Audit policy configuration
-----------------------------------
+### Windows Audit policy configuration
 
 Setting windows audit policy, detemine what events to collect.
 
@@ -27,23 +25,22 @@ Settings/Local Policies/Audit Policies/
 Domain Policy/Computer Configuration/Policies/Windows Settings/ Security
 Settings/Advanced Audit Policies/Audit Policies/
 
-Graylog configuration {#graylog-configuration-1}
----------------------
+### Graylog configuration
 
 Setting graylog, to collect log and analysis.
 
--   System/Indices
--   Steams
--   Inputs
--   System/Sidecars
--   Dashboards
--   Alerts
+- System/Indices
+- Steams
+- Inputs
+- System/Sidecars
+- Dashboards
+- Alerts
 
 ### System/indices
 
 Create index set `WinEventLog`:
 
-``` {.sourceCode .yaml}
+```yaml
 Index prefix: wineventlog
 Shards: 2
 Replicas: 1
@@ -58,13 +55,15 @@ Max number of indices: 100
 
 Create stream `WinEventLog`:
 
-    Field **beats_type** must match exactly **winlogbeat**
+```
+Field **beats_type** must match exactly **winlogbeat**
+```
 
 ### Inputs
 
 Create input Beats, named `beats`.
 
-``` {.sourceCode .yaml}
+```yaml
 bind_address: 0.0.0.0
 no_beats_prefix: false
 number_worker_threads: 4
@@ -85,9 +84,9 @@ tls_key_password: ********
 Create Configuration `winlogbeat`, and apply the configure file to
 windows servers.
 
-Replace &lt;graylog server host&gt; with the actural hostname.
+Replace <graylog server host> with the actural hostname.
 
-``` {.sourceCode .yaml}
+```yaml
 # Needed for Graylog
 fields_under_root: true
 fields.collector_node_id: ${sidecar.nodeName}
@@ -120,46 +119,42 @@ logging:
 
 ### Alerts
 
-Install graylog-sidecar on windows server
------------------------------------------
+### Install graylog-sidecar on windows server
 
 Configuration:
 
-``` {.sourceCode .yaml}
+```yaml
 Graylog API: <https://graylog-server/api>
 name of this instance: <windows server hostname>
 API token: <api token>
 ```
 
-Exchange 2010 Message Tracking
-==============================
+## Exchange 2010 Message Tracking
 
-Collect exchange tracking messages from windows exchane server, using
-`filebeat`.
+Collect exchange tracking messages from windows exchane server, using `filebeat`.
 
 Audit exchange tracking messages for:
 
--   who sent mails
--   who received mail
+- who sent mails
+- who received mail
 
-Graylog Configuration {#graylog-configuration-2}
----------------------
+### Graylog Configuration
 
 Setting graylog, to collect log and analysis.
 
--   System/Indices
--   Steams
--   lookup table
--   Inputs
--   System/Sidecars
--   Dashboards
--   Alerts
+- System/Indices
+- Steams
+- lookup table
+- Inputs
+- System/Sidecars
+- Dashboards
+- Alerts
 
 ### System/indices
 
 Create index set `Exchange2010MsgTrk`
 
-``` {.sourceCode .yaml}
+```yaml
 Index prefix: ex2010msgtrk
 Shards: 2
 Replicas: 1
@@ -180,7 +175,7 @@ Create stream `Exchange2010MsgTrk`:
 
 Create `Data Adapters`: geoip (Geo IP - MaxMind™ Databases)
 
-``` {.sourceCode .yaml}
+```yaml
 Description: No description.
 Configuration:
   Database file path: /etc/graylog/server/GeoLite2-City.mmdb
@@ -190,7 +185,7 @@ Configuration:
 
 Create `Caches`: geoip (Node-local, in-memory cache)
 
-``` {.sourceCode .yaml}
+```yaml
 Description: No description.
 Configuration:
   Maximum entries: 1000
@@ -200,7 +195,7 @@ Configuration:
 
 Create `Lookup Tables`
 
-``` {.sourceCode .yaml}
+```yaml
 Data adapter: geoip
 Cache: geoip
 ```
@@ -209,7 +204,7 @@ Cache: geoip
 
 Create input Beats, named `beats_ex2010msgtrk`.
 
-``` {.sourceCode .yaml}
+```yaml
 bind_address: 0.0.0.0
 no_beats_prefix: false
 number_worker_threads: 1
@@ -229,15 +224,15 @@ Exchange 2010 tracking message is cvs format, so need to extract.
 
 Create extractors:
 
-> -   ex2010msgtrk\_csv(Copy input)
-> -   ex2010msgtrk\_geo(Lookup Table)
+- ex2010msgtrk_csv(Copy input)
+- ex2010msgtrk_geo(Lookup Table)
 
--   ex2010msgtrk\_csv(Copy input):
+- ex2010msgtrk_csv(Copy input):
 
-    > Trying to extract data from message into message, leaving the
-    > original intact.
+  > Trying to extract data from message into message, leaving the
+  > original intact.
 
-``` {.sourceCode .yaml}
+```yaml
 Configuration
   No configuration options
 Converters
@@ -247,12 +242,12 @@ Converters
     trim_leading_whitespace:
 ```
 
--   ex2010msgtrk\_geo(Lookup Table):
+- ex2010msgtrk_geo(Lookup Table):
 
-    > Trying to extract data from original\_client\_ip into
-    > geo\_original\_client\_ip, leaving the original intact.
+  > Trying to extract data from original_client_ip into
+  > geo_original_client_ip, leaving the original intact.
 
-``` {.sourceCode .yaml}
+```yaml
 Configuration
   lookup_table_name: geoip
 ```
@@ -262,9 +257,9 @@ Configuration
 Create Configuration `filebeat-ex2010_msg_trk`, and apply the configure
 file to the exchange server.
 
-Replace &lt;graylog server host&gt; with the actural hostname.
+Replace <graylog server host> with the actural hostname.
 
-``` {.sourceCode .yaml}
+```yaml
 # Needed for Graylog
 fields_under_root: true
 fields.collector_node_id: ${sidecar.nodeName}
@@ -294,28 +289,25 @@ fields:
 
 ### Alerts
 
-Install graylog-sidecar on Exchange server
-------------------------------------------
+### Install graylog-sidecar on Exchange server
 
 Configuration:
 
-``` {.sourceCode .yaml}
+```yaml
 Graylog API: <https://graylog-server/api>
 name of this instance: <exchange server hostname>
 API token: <api token>
 ```
 
-360天擎 Logs
-============
+## 360天擎 Logs
 
 Push 360天擎 logs to graylog-server, using `syslog`.
 
-360 Configuration
------------------
+### 360 Configuration
 
 /系统管理/系统设置/数据导出:
 
-``` {.sourceCode .yaml}
+```yaml
 SysLog数据:
   目标数据平台IP: <graylog-server ip>
   目标数据平台端口: <graylog-input-syslog port>
@@ -323,22 +315,21 @@ SysLog数据:
 转发配置: 默认模式(标注JSON)
 ```
 
-Graylog Configuration {#graylog-configuration-3}
----------------------
+### Graylog Configuration
 
 Setting graylog, to accept logs and analysis.
 
--   System/Indices
--   Steams
--   Inputs
--   Dashboards
--   Alerts
+- System/Indices
+- Steams
+- Inputs
+- Dashboards
+- Alerts
 
 ### System/indices
 
 Create index set `360TQ`
 
-``` {.sourceCode .yaml}
+```yaml
 Index prefix: 360tq
 Shards: 2
 Replicas: 1
@@ -353,13 +344,15 @@ Max number of indices: 12
 
 Create stream `360TQ`:
 
-    Field **tags** must contain **360TQ**
+```
+Field **tags** must contain **360TQ**
+```
 
 ### Inputs
 
 Create input Beats, named `syslog/udp_360TQ`.
 
-``` {.sourceCode .yaml}
+```yaml
 allow_override_date: true
 bind_address: 0.0.0.0
 expand_structured_data: false
@@ -375,15 +368,14 @@ store_full_message: false
 
 Create extractors:
 
-> -   360TQ\_json(json)
-> -   360TQ\_source(Replace with regular expression)
+- 360TQ_json(json)
+- 360TQ_source(Replace with regular expression)
 
--   360TQ\_json(json):
+- 360TQ_json(json):
 
-    > Trying to extract data from message into , leaving the original
-    > intact.
+  > Trying to extract data from message into , leaving the original intact.
 
-``` {.sourceCode .yaml}
+```yaml
 Configuration
   list_separator: ,
   kv_separator: =
@@ -393,12 +385,12 @@ Configuration
   key_whitespace_replacement: _
 ```
 
--   360TQ\_source(Replace with regular expression):
+-   360TQ_source(Replace with regular expression):
 
-    > Trying to extract data from source into source, leaving the
-    > original intact.
+  > Trying to extract data from source into source, leaving the
+  > original intact.
 
-``` {.sourceCode .yaml}
+```yaml
 Configuration
   replacement: 360tq
   regex: ^.*$
@@ -408,33 +400,31 @@ Configuration
 
 ### Alerts
 
-ESafeNet Logs
-=============
+## ESafeNet Logs
 
 Collect ESafeNet logs from esafenet server, using `filebeat`.
 
 Audit exchange tracking messages for:
 
--   who decode files using privilege auth
--   who submit process to decode files
+- who decode files using privilege auth
+- who submit process to decode files
 
-Graylog Configuration {#graylog-configuration-4}
----------------------
+### Graylog Configuration
 
 Setting graylog, to collect log and analysis.
 
--   System/Indices
--   Steams
--   Inputs
--   System/Sidecars
--   Dashboards
--   Alerts
+- System/Indices
+- Steams
+- Inputs
+- System/Sidecars
+- Dashboards
+- Alerts
 
 ### System/indices
 
 Create index set `ESafeNet`
 
-``` {.sourceCode .yaml}
+```yaml
 Index prefix: esafenet
 Shards: 2
 Replicas: 1
@@ -449,13 +439,15 @@ Max number of indices: 24
 
 Create stream `ESafeNet`:
 
-    Field **filebeat_tags** must contain **esafenet**
+```
+Field **filebeat_tags** must contain **esafenet**
+```
 
 ### Inputs
 
 Create input Beats, named `beats_esafenet`.
 
-``` {.sourceCode .yaml}
+```yaml
 bind_address: 0.0.0.0
 no_beats_prefix: false
 number_worker_threads: 1
@@ -476,17 +468,16 @@ Another, create timestamp from log time.
 
 Create extractors
 
-> -   esafenet\_filelog(Copy input)
-> -   esafenet\_proclog(Copy input)
-> -   esafenet\_timestamp\_1(Copy input)
-> -   esafenet\_timestamp\_2(Copy input)
+- esafenet_filelog(Copy input)
+- esafenet_proclog(Copy input)
+- esafenet_timestamp_1(Copy input)
+- esafenet_timestamp_2(Copy input)
 
--   esafenet\_filelog(Copy input):
+- esafenet_filelog(Copy input):
 
-    > Trying to extract data from message into message, leaving the
-    > original intact.
+  > Trying to extract data from message into message, leaving the original intact.
 
-``` {.sourceCode .yaml}
+```
 Condition
   Will only attempt to run if the message matches the regular expression ^(?!FSN)
 Configuration
@@ -499,12 +490,11 @@ Converters
     escape_char: %
 ```
 
--   esafenet\_proclog(Copy input):
+- esafenet\_proclog(Copy input):
 
-    > Trying to extract data from message into message, leaving the
-    > original intact.
+  > Trying to extract data from message into message, leaving the original intact.
 
-``` {.sourceCode .yaml}
+```
 Condition
   Will only attempt to run if the message matches the regular expression ^FSN
 Configuration
@@ -515,12 +505,11 @@ Converters
     escape_char: %
 ```
 
--   esafenet\_timestamp\_1(Copy input):
+- esafenet_timestamp_1(Copy input):
 
-    > Trying to extract data from esn\_time into timestamp, leaving the
-    > original intact.
+  > Trying to extract data from esn_time into timestamp, leaving the original intact.
 
-``` {.sourceCode .yaml}
+```
 Condition
   Will only attempt to run if the message includes the string
 Configuration
@@ -532,12 +521,11 @@ Converters
     locale: zh-CN
 ```
 
--   esafenet\_timestamp\_2(Copy input):
+- esafenet_timestamp_2(Copy input):
 
-    > Trying to extract data from esn\_time into timestamp, leaving the
-    > original intact.
+  > Trying to extract data from esn_time into timestamp, leaving the original intact.
 
-``` {.sourceCode .yaml}
+```
 Condition
   Will only attempt to run if the message matches the regular expression ^[^ ]*$
 Configuration
@@ -554,9 +542,9 @@ Converters
 Create Configuration `filebeat-esafenet`, and apply the configure file
 to esafenet server.
 
-Replace &lt;graylog server host&gt; with the actural hostname.
+Replace <graylog server host> with the actural hostname.
 
-``` {.sourceCode .yaml}
+```yaml
 # Needed for Graylog
 fields_under_root: true
 fields.collector_node_id: ${sidecar.nodeName}
@@ -583,23 +571,21 @@ tags:
 
 ### Alerts
 
-Install graylog-sidecar on server
----------------------------------
+### Install graylog-sidecar on server
 
 Configuration:
 
-``` {.sourceCode .yaml}
+```yaml
 Graylog API: <https://graylog-server/api>
 name of this instance: <server hostname>
 API token: <api token>
 ```
 
-Export ESafeNet logs
---------------------
+### Export ESafeNet logs
 
-1.  Archive log in DLP system every month;
-2.  Format log files;
-3.  Place log files in directory `E:\log\[year]\[month]\`.
+1. Archive log in DLP system every month;
+2. Format log files;
+3. Place log files in directory `E:\log\[year]\[month]\`.
 
 ### Archive log
 
@@ -607,37 +593,32 @@ Logon on to ESafenet DLP system as user `logadmin`.
 
 Archive log at:
 
-    日志管理/文件日志/归档日志
-    日志管理/流程日志/归档日志
+  日志管理/文件日志/归档日志
+
+  日志管理/流程日志/归档日志
 
 ### Format log
 
-1.  Unarchive log files to directory \[logdir\]
-2.  format log files, formated log files will output to directory
-    \[logdir\]/output:
+1. Unarchive log files to directory [logdir]
+2. format log files, formated log files will output to directory [logdir]/output:
+   ```bash
+   formatLogs.sh -d [logdir]
+   ```
 
-        formatLogs.sh -d [logdir]
-
-You can download the script here &lt;/file/formatLogs.sh&gt;.
+You can download the script here [Script](/file/formatLogs.sh)
 
 ### Place log files
 
 Place formated log files to directory `E:\log\[year]\[month]\`
 
-Kubernetes Logs
-===============
+## Kubernetes Logs
 
-Dashboard
-=========
+## Dashboard
 
-Active Directory
-----------------
+### Active Directory
 
-Exchange
---------
+### Exchange
 
-Filesystem
-----------
+### Filesystem
 
-Security
---------
+### Security

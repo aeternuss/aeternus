@@ -1,64 +1,55 @@
 # Tips on Dockerfile
 
-Localtime
-=========
+## Localtime
 
-``` {.sourceCode .bash}
+```bash
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 ```
 
-Alpine docker image doesn't has package **tzdata**, so need install
-first:
+Alpine docker image doesn't has package **tzdata**, so need install first:
 
-``` {.sourceCode .bash}
+```bash
 apk add --no-cache --virtual .tzdata-deps tzdata
 cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 apk del --no-cache .tzdata-deps
 ```
 
-Alpine
-======
+## Alpine
 
---no-cache
-----------
+### --no-cache
 
 No cache when install packages:
 
-``` {.sourceCode .bash}
+```bash
 apk upgrade --no-cache
 apk add --no-cache <packages>
 ```
 
---virtual
----------
+### --virtual
 
 Group dependencies, and remove all dependencies with just one command:
 
-``` {.sourceCode .bash}
+```bash
 apk add --no-cache --virtual .build-deps <packages>
 ...
 apk del --no-cache .build-deps
 ```
 
-pip
-===
+## pip
 
---no-cache-dir
---------------
+### --no-cache-dir
 
 No cache when install packages:
 
-``` {.sourceCode .bash}
+```bash
 pip install --no-cache-dir <packages>
 ```
 
-Git
-===
+## Git
 
-Minimal clone
--------------
+### Minimal clone
 
-``` {.sourceCode .bash}
+```bash
 git clone --depth=1 --branch=<branch> <repo-url> <repo-dir>
 rm -rf ./<repo-dir>/.git
 ```

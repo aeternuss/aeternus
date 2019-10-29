@@ -1,22 +1,19 @@
 # Storage
 
-Feature
-=======
+## Feature
 
--   security
--   size
--   performance
+- security
+- size
+- performance
 
-Management
-==========
+## Management
 
--   permission
--   quota
--   classify
+- permission
+- quota
+- classify
 
-Kind
-====
+## Kind
 
--   NAS
--   SAN
--   DFS
+- NAS
+- SAN
+- DFS

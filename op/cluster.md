@@ -4,30 +4,26 @@ Use pacemaker, corosync to create cluster.
 
 and, add ocf:heartbeat:IPaddr2, systemd:haproxy resources.
 
-Install packages
-================
+## Install packages
 
--   pacemaker
--   pcs
+- pacemaker
+- pcs
 
-Setup Cluster
-=============
+## Setup Cluster
 
-Change password
----------------
+### Change password
 
 Change hacluster password on all nodes:
 
-``` {.sourceCode .shell}
+```bash
 echo 'password' | passwd --stdin hacluster
 ```
 
-Setup
------
+### Setup
 
 On one node:
 
-``` {.sourceCode .shell}
+```bash
 # authenticate as the hacluster user
 pcs cluster auth {{ NODE1 }} {{ NODE2 }} -u hacluster -p {{ HACLUSTER_PWD }}
 
@@ -41,13 +37,12 @@ pcs property set no-quorum-policy=ignore
 pcs resource defaults resource-stickiness=100
 ```
 
-Add Resources
-=============
+## Add Resources
 
--   ocf:heartbeat:IPaddr2
--   systemd:haproxy
+- ocf:heartbeat:IPaddr2
+- systemd:haproxy
 
-``` {.sourceCode .shell}
+```bash
 # ocf:heartbeat:IPaddr2
 pcs resource create VirtualIP ocf:heartbeat:IPaddr2 \
   ip={{ VIRTUAL_IP }} cidr_netmask=24 nic={{ INTERFACE_NAME }} \
@@ -58,12 +53,11 @@ pcs resource create HAProxy systemd:haproxy \
   op monitor interval=30s
 ```
 
-Set Constraint
---------------
+### Set Constraint
 
 Run resources on the same host, and run VirtualIP before HAProxy.
 
-``` {.sourceCode .shell}
+```bash
 # run on same host
 pcs constraint colocation add HAProxy with VirtualIP INFINITY
 
@@ -74,8 +68,6 @@ pcs constraint order VirtualIP then HAProxy
 pcs constraint location HAProxy prefers {{ NODE1 }}=50
 ```
 
-Reference
-=========
+## Reference
 
--   [Clusters from
-    Scratch](https://clusterlabs.org/pacemaker/doc/en-US/Pacemaker/2.0/html/Clusters_from_Scratch/index.html)
+- [Clusters from Scratch](https://clusterlabs.org/pacemaker/doc/en-US/Pacemaker/2.0/html/Clusters_from_Scratch/index.html)

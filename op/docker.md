@@ -2,16 +2,16 @@
 
 ## Configuration
 
--   Registry
--   IPv6
--   Cgroup Driver
--   Storage Driver
--   log
--   Image Download
+- Registry
+- IPv6
+- Cgroup Driver
+- Storage Driver
+- log
+- Image Download
 
 Config file location: `/etc/docker/daemon.json`
 
-``` {.sourceCode .json}
+```json
 {
   "registry-mirrors": [
     "<REGISTRY1>",

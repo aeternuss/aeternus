@@ -2,12 +2,11 @@
 
 Oxidized is a network device configuration backup tool.
 
-Running with Docker
-===================
+## Running with Docker
 
 An example of docker-compose.yml.
 
-``` {.sourceCode .yaml}
+```yaml
 oxidized:
   image: oxidized/oxidized:latest
   restart: always
@@ -19,42 +18,38 @@ oxidized:
     - /etc/oxidized:/root/.config/oxidized
 ```
 
-Configuration
-=============
+## Configuration
 
-Layout
-------
+### Layout
 
--   OXIDIZED\_HOME
+- OXIDIZED_HOME
 
-    Default home dir is /root/.config/oxidized, You can set the env
-    variable OXIDIZED\_HOME to change its home directory.
+  Default home dir is /root/.config/oxidized, You can set the env
+  variable OXIDIZED_HOME to change its home directory.
 
--   \${OXIDIZED\_HOME}/config
+- ${OXIDIZED_HOME}/config
 
-    Oxidized configuration is in YAML format.
+  Oxidized configuration is in YAML format.
 
--   \${OXIDIZED\_HOME}/router.db
+- ${OXIDIZED_HOME}/router.db
 
-    csv source
+  csv source
 
-Source
-------
+### Source
 
 Oxidized supports CSV, SQLite, MySQL and HTTP as source backends.
 
--   The CSV backend reads nodes from a rancid compatible
-    \${OXIDIZED\_HOME}/router.db file.
--   The SQLite and MySQL backends will fire queries against a database
-    and map certain fields to model items.
--   The HTTP backend will fire queries against a http/https url.
+- The CSV backend reads nodes from a rancid compatible
+  ${OXIDIZED_HOME}/router.db file.
+- The SQLite and MySQL backends will fire queries against a database
+  and map certain fields to model items.
+- The HTTP backend will fire queries against a http/https url.
 
-Example
--------
+### Example
 
 ### config
 
-``` {.sourceCode .yaml}
+```yaml
 username: <default_username>
 password: <defualt_password>
 model: <default_model>
@@ -103,19 +98,18 @@ model_map:
 
 ### router.db
 
-``` {.sourceCode .yaml}
+```
 # no enable
 <name>:<model>:<username>:<password>
 # enable
 <name>:<model>:<username>:<password>:<enablePassword>
 ```
 
-Advanced Group Configuration
-----------------------------
+### Advanced Group Configuration
 
 For group specific credentials
 
-``` {.sourceCode .yaml}
+```yaml
 groups:
   mikrotik:
     username: <username>
@@ -127,7 +121,7 @@ groups:
 
 and add group mapping
 
-``` {.sourceCode .yaml}
+```yaml
 map:
   model: 0
   name: 1
@@ -136,10 +130,9 @@ map:
 
 For model specific credentials
 
-You can add 'username: nil' if the device only expects a Password at
-prompt.
+You can add 'username: nil' if the device only expects a Password at prompt.
 
-``` {.sourceCode .yaml}
+```yaml
 models:
   junos:
     username: <username>
