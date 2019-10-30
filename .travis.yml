@@ -23,4 +23,4 @@ before_script:
   - rm -rf .git
 
 script:
-  - ./ossutil64 cp -e $OSS_endpoint -i $OSS_accessKeyID -k $OSS_accessKeySecret -r --update --exclude "ossutil64" . oss://$OSS_bucket/
+  - ./ossutil64 cp --output-dir	/tmp -e $OSS_endpoint -i $OSS_accessKeyID -k $OSS_accessKeySecret -r --update --exclude "ossutil64" . oss://$OSS_bucket/
