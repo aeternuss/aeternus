@@ -4,7 +4,7 @@ OSSUTIL_BIN=./ossutil64
 GIT_HEAD_ID_FILE=.travis_HEAD
 
 # get prev HEAD ID and current HEAD ID
-read PREV_HEAD < $GIT_HEADID_FILE
+read PREV_HEAD < $GIT_HEAD_ID_FILE
 
 # config ossutil
 $OSSUTIL_BIN config -c oss_config -e $OSS_endpoint -i $OSS_accessKeyID -k $OSS_accessKeySecret
