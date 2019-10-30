@@ -1,0 +1,15 @@
+before_install:
+  - export TZ='Asia/Shanghai'
+
+# install ossutil
+install:
+  - wget http://gosspublic.alicdn.com/ossutil/1.6.7/ossutil64
+  - chmod 755 ossutil64
+
+script:
+  - |
+    ./ossutil64 cp
+    -e $OSS_endpoint -i $OSS_accessKeyID -k $OSS_accessKeySecret
+    -r --update
+    --exclude "ossutil64"
+    . oss://$OSS_bucket/
