@@ -9,7 +9,7 @@ $OSSUTIL_BIN config -c oss_config \
 
 # get prev HEAD ID 
 $OSSUTIL_BIN cp -c oss_config --output-dir oss_out/ -f \
-    oss://$OSS_bucket/$GIT_HEAD_ID_FILE .
+    oss://$OSS_bucket/$GIT_HEAD_ID_FILE ./
 
 if [ -f $GIT_HEAD_ID_FILE ]; then
   read PREV_HEAD < $GIT_HEAD_ID_FILE
@@ -19,8 +19,11 @@ fi
 while read -r file; do
   echo "UPDATE: $file"
 
+  oss_dir=$(dirname "$file")
+  if [ "$oss_dir" == "." ]; then oss_dir=""; fi
+
   $OSSUTIL_BIN cp -c oss_config --output-dir oss_out/ -f \
-    "$file" oss://$OSS_bucket/$(dirname "$file")
+    "$file" oss://$OSS_bucket/$oss_dir
 done < <(git diff --name-only $PREV_HEAD HEAD)
 
 # update current head id
