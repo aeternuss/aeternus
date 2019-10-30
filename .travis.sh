@@ -17,6 +17,8 @@ fi
 
 # update changed files
 while read -r file; do
+  echo "UPDATE: $file"
+
   $OSSUTIL_BIN cp -c oss_config --output-dir oss_out/ -f \
     "$file" oss://$OSS_bucket/$(dirname "$file")
 done < <(git diff --name-only $PREV_HEAD HEAD)
