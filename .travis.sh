@@ -23,14 +23,14 @@ while read -r file; do
     #     .          ->  NULL
     #     ./sub/dir  ->  ./sub/dir/
     oss_dir=$(dirname "$file")
-    if [ "$oss_dir" == "." ]; then
-        oss_dir=""
-    else
-        oss_dir="$oss_dir/"
-    fi
+    #if [ "$oss_dir" == "." ]; then
+    #    oss_dir=""
+    #else
+    #    oss_dir="$oss_dir/"
+    #fi
 
     $OSSUTIL_BIN cp -c oss_config --output-dir oss_out/ -f \
-        "$file" oss://$OSS_bucket/$oss_dir
+        "$file" oss://$OSS_bucket/$oss_dir/
 done < <(git diff --name-only $PREV_HEAD HEAD)
 
 # update current head id
