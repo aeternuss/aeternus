@@ -8,19 +8,14 @@ The vga kernel boot parameter accepts a code which represents the screen resolut
 
 The easy way to find the codes is to use `vga=ask` boot parameter when you boot into your operating system.
 
-First, open the GRUB configuration file with the following command:
-
-```bash
-vi /etc/default/grub
-```
-
-Now, add `vga=0xXXX` to the end of the `GRUB_CMDLINE_LINUX`:
+First, open GRUB configuration file `/etc/default/grub`,
+add `vga=0xXXX` to the end of the `GRUB_CMDLINE_LINUX`:
 
 ```bash
 GRUB_CMDLINE_LINUX="... vga=0xXXX"
 ```
 
-Now, update the GRUB configuration files with the following command:
+Then, update the GRUB configuration files with the following command:
 
 ```bash
 grub2-mkconfig -o $(sudo readlink -f /etc/grub2.cfg)
@@ -36,20 +31,14 @@ In the GRUB command prompt, find the supported screen resolution on your compute
 grub> vbeinfo
 ```
 
-First, open the GRUB configuration file with the following command:
-
-```bash
-vi /etc/default/grub
-```
-
-Then, add the line:
+First, add the line to GRUB configuration file `/etc/default/grub`:
 
 ```bash
 GRUB_GFXMODE=<Width>x<Height>x<Depth>
 GRUB_GFXPAYLOAD_LINUX=keep
 ```
 
-Now, update the GRUB configuration files with the following command:
+Then, update the GRUB configuration files with the following command:
 
 ```bash
 grub2-mkconfig -o $(sudo readlink -f /etc/grub2.cfg)
