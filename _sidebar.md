@@ -29,7 +29,7 @@
   * [CentOS - Reset Root Password](/op/os/centosResetRootPassword.md)
   * [Linux - IPMI](/op/os/linuxIPMI.md)
   * [Linux - Nftables](/op/os/linuxNftables.md)
-  * [Linux - Set Screen Resolution](/op/os/linuxScreenResolution.md)
+  * [Linux - Screen Resolution](/op/os/linuxScreenResolution.md)
   * [Linux - TimeZone](/op/os/linuxTimeZone.md)
   * [OS - Get External IPaddr](/op/os/osGetExternalIPAddr.md)
   * [Windows - Automatic Repair](/op/os/winAutomaticRepair.md)
