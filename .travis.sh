@@ -24,7 +24,7 @@ while read -r status name1 name2; do
         # files added or modified
         A*|M*)
             echo "UPLOAD: $name1"
-            $OSSUTIL_BIN cp -c oss_config -f "$name2" oss://$OSS_bucket/$name1
+            $OSSUTIL_BIN cp -c oss_config -f "$name1" oss://$OSS_bucket/$name1
             ;;
 
         # files deleted
