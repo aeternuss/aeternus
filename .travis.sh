@@ -35,16 +35,14 @@ while read -r status name1 name2; do
 
         # files renamed
         R*)
-            echo "DELETE: $name1"
+            echo "RENAME: DELETE>$name1, UPLOAD>$name2"
             $OSSUTIL_BIN rm -c oss_config -f oss://$OSS_bucket/$name1
-
-            echo "UPLOAD: $name2"
             $OSSUTIL_BIN cp -c oss_config -f "$name2" oss://$OSS_bucket/$name2
             ;;
 
-        # others
+        # others, return error
         *)
-            echo "UNKNOW: $name1:$name2"
+            echo "UNKNOWN: $status:$name1:$name2"
             exit -1
             ;;
     esac
