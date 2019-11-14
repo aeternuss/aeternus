@@ -5,7 +5,6 @@ on:
     branches: [ master ]
 
 env:
-  TZ: Aisa/Shanghai
   OSSUTIL_URL: http://gosspublic.alicdn.com/ossutil/1.6.7/ossutil64
   GIT_COMMIT_FILE: .git_commit
 
@@ -15,10 +14,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - name: Set timezone
+      run: |
+        timedatectl set-timezone Aisa/Shanghai
+        date
 
-    - name: check if TZ variable effect
-      run: date
+    - uses: actions/checkout@v1
 
     - name: Get Aliyun OSS command tool ossutil
       run: |
@@ -26,14 +27,20 @@ jobs:
         chmod 755 ossutil
 
     - name: Config ossutil
-      run: ./ossutil config -c oss_config --output-dir oss_out/ -e ${{ secrets.OSS_endpoint }} -i ${{ secrets.OSS_accessKeyID }} -k ${{ secrets.OSS_accessKeySecret }}
+      env:
+        endpoint: ${{ secrets.OSS_endpoint }}
+        accessKeyID: ${{ secrets.OSS_accessKeyID }}
+        accessKeySecret: ${{ secrets.OSS_accessKeyID }}
+      run: ./ossutil config -c oss_config --output-dir oss_out/ -e $endpoint -i $accessKeyID -k $accessKeySecret
 
     - name: Update changed files
+      env:
+        bucket: ${{ secrets.OSS_bucket }}
       run: |
         set -eu
         
         # Get prev GIT commit ID where last pushed
-        if ./ossutil cp -c oss_config -f oss://${{ secrets.OSS_bucket }}/$GIT_COMMIT_FILE ./; then
+        if ./ossutil cp -c oss_config -f oss://$bucket/$GIT_COMMIT_FILE ./; then
             read GIT_COMMIT < $GIT_COMMIT_FILE
         fi
         
@@ -43,20 +50,20 @@ jobs:
                 # files added or modified
                 A*|M*)
                     echo "OSS> UPLOAD: $name1"
-                    ./ossutil cp -c oss_config -f "$name1" oss://${{ secrets.OSS_bucket }}/$name1
+                    ./ossutil cp -c oss_config -f "$name1" oss://$bucket/$name1
                     ;;
 
                 # files deleted
                 D*)
                     echo "OSS> DELETE: $name1"
-                    ./ossutil rm -c oss_config -f oss://${{ secrets.OSS_bucket }}/$name1
+                    ./ossutil rm -c oss_config -f oss://$bucket/$name1
                     ;;
 
                 # files renamed
                 R*)
                     echo "OSS> RENAME: $name1 --> $name2"
-                    ./ossutil rm -c oss_config -f oss://${{ secrets.OSS_bucket }}/$name1
-                    ./ossutil cp -c oss_config -f "$name2" oss://${{ secrets.OSS_bucket }}/$name2
+                    ./ossutil rm -c oss_config -f oss://$bucket/$name1
+                    ./ossutil cp -c oss_config -f "$name2" oss://$bucket/$name2
                     ;;
 
                 # others, return error
@@ -70,4 +77,4 @@ jobs:
     - name:  update current git commit ID
       run: |
         git rev-parse HEAD > $GIT_COMMIT_FILE
-        ./ossutil cp -c oss_config -f $GIT_COMMIT_FILE oss://${{ secrets.OSS_bucket }}/
+        ./ossutil cp -c oss_config -f $GIT_COMMIT_FILE oss://$bucket/
