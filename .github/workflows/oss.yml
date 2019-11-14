@@ -2,7 +2,8 @@ name: OSS
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
 
 env:
   OSSUTIL_URL: http://gosspublic.alicdn.com/ossutil/1.6.7/ossutil64
