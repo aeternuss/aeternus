@@ -24,26 +24,26 @@ while read -r status name1 name2; do
     case $status in
         # files added or modified
         A*|M*)
-            echo "UPLOAD: $name1"
+            echo "OSS> UPLOAD: $name1"
             $OSSUTIL_BIN cp -c oss_config -f "$name1" oss://$OSS_bucket/$name1
             ;;
 
         # files deleted
         D*)
-            echo "DELETE: $name1"
+            echo "OSS> DELETE: $name1"
             $OSSUTIL_BIN rm -c oss_config -f oss://$OSS_bucket/$name1
             ;;
 
         # files renamed
         R*)
-            echo "RENAME: $name1 --> $name2"
+            echo "OSS> RENAME: $name1 --> $name2"
             $OSSUTIL_BIN rm -c oss_config -f oss://$OSS_bucket/$name1
             $OSSUTIL_BIN cp -c oss_config -f "$name2" oss://$OSS_bucket/$name2
             ;;
 
         # others, return error
         *)
-            echo "UNKNOWN: $status:$name1:$name2"
+            echo "GIT> UNKNOWN: $status:$name1:$name2"
             exit -1
             ;;
     esac
