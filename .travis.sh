@@ -1,7 +1,10 @@
 #!/bin/bash
 
+set -eu
+
 OSSUTIL_BIN=./ossutil64
-GIT_HEAD_ID_FILE=.travis_HEAD
+GIT_HEAD_FILE=.travis_HEAD
+GIT_HEAD=""
 
 # --------------------------------------
 # config ossutil
@@ -11,14 +14,12 @@ $OSSUTIL_BIN config -c oss_config \
 
 # --------------------------------------
 # get prev HEAD ID 
-$OSSUTIL_BIN cp -c oss_config -f oss://$OSS_bucket/$GIT_HEAD_ID_FILE ./
-
-if [ -f $GIT_HEAD_ID_FILE ]; then
-    read PREV_HEAD < $GIT_HEAD_ID_FILE
+if $OSSUTIL_BIN cp -c oss_config -f oss://$OSS_bucket/$GIT_HEAD_FILE ./; then
+    read GIT_HEAD < $GIT_HEAD_FILE
 fi
 
 # --------------------------------------
-# upload changed files
+# deal with changed files
 while read -r status name1 name2; do
     case $status in
         # files added or modified
@@ -35,7 +36,7 @@ while read -r status name1 name2; do
 
         # files renamed
         R*)
-            echo "RENAME: DELETE>$name1, UPLOAD>$name2"
+            echo "RENAME: $name1 --> $name2"
             $OSSUTIL_BIN rm -c oss_config -f oss://$OSS_bucket/$name1
             $OSSUTIL_BIN cp -c oss_config -f "$name2" oss://$OSS_bucket/$name2
             ;;
@@ -46,12 +47,12 @@ while read -r status name1 name2; do
             exit -1
             ;;
     esac
-done < <(git diff --name-status $PREV_HEAD HEAD)
+done < <(git diff --name-status $GIT_HEAD HEAD)
 
 # --------------------------------------
-# update current HEAD id
-git rev-parse HEAD > $GIT_HEAD_ID_FILE
-$OSSUTIL_BIN cp -c oss_config -f $GIT_HEAD_ID_FILE oss://$OSS_bucket/
+# update current HEAD ID
+git rev-parse HEAD > $GIT_HEAD_FILE
+$OSSUTIL_BIN cp -c oss_config -f $GIT_HEAD_FILE oss://$OSS_bucket/
 
 # remove tmp files
 rm -rf oss_config oss_out/ ossutil64
