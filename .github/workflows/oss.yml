@@ -21,23 +21,23 @@ jobs:
           wget -O ossutil $OSSUTIL_URL
           chmod 755 ossutil
 
-      - name: Config ossutil
-        env:
-          endpoint: ${{ secrets.OSS_endpoint }}
-          accessKeyID: ${{ secrets.OSS_accessKeyID }}
-          accessKeySecret: ${{ secrets.OSS_accessKeyID }}
-        run: ./ossutil config -c oss_config --output-dir oss_out/ -e $endpoint -i $accessKeyID -k $accessKeySecret
-
       - name: Update changed files
         env:
+          endpoint: ${{ secrets.OSS_endpoint }}
           bucket: ${{ secrets.OSS_bucket }}
+          accessKeyID: ${{ secrets.OSS_accessKeyID }}
+          accessKeySecret: ${{ secrets.OSS_accessKeySecret }}
         run: |
-          # Get prev GIT commit ID where last pushed
-          if ./ossutil cp -c oss_config -f oss://$bucket/$GIT_COMMIT_FILE ./; then
+          # Config ossutil
+          ./ossutil config -c oss_config --output-dir oss_out/ -e $endpoint -i $accessKeyID -k $accessKeySecret
+
+          # Get prev GIT commit ID
+          ./ossutil cp -c oss_config -f oss://$bucket/$GIT_COMMIT_FILE ./ || true
+          if [ -f $GIT_COMMIT_FILE ]; then
               read GIT_COMMIT < $GIT_COMMIT_FILE
           fi
           
-          # Deal with changed files from last pushed
+          # Update changed files
           while read -r status name1 name2; do
               case $status in
                   # files added or modified
@@ -67,7 +67,6 @@ jobs:
               esac
           done < <(git diff --name-status $GIT_COMMIT HEAD)
 
-      - name:  update current git commit ID
-        run: |
+          #  update current git commit ID
           git rev-parse HEAD > $GIT_COMMIT_FILE
           ./ossutil cp -c oss_config -f $GIT_COMMIT_FILE oss://$bucket/
