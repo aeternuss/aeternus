@@ -1,0 +1,73 @@
+name: OSS
+
+on:
+  push:
+    branches: [ master ]
+
+env:
+  TZ: Aisa/Shanghai
+  OSSUTIL_URL: http://gosspublic.alicdn.com/ossutil/1.6.7/ossutil64
+  GIT_COMMIT_FILE: .git_commit
+
+jobs:
+  oss:
+    name: OSS Update
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: check if TZ variable effect
+      run: date
+
+    - name: Get Aliyun OSS command tool ossutil
+      run: |
+        wget -O ossutil $OSSUTIL_URL
+        chmod 755 ossutil
+
+    - name: Config ossutil
+      run: ./ossutil config -c oss_config --output-dir oss_out/ -e ${{ secrets.OSS_endpoint }} -i ${{ secrets.OSS_accessKeyID }} -k ${{ secrets.OSS_accessKeySecret }}
+
+    - name: Update changed files
+      run: |
+        set -eu
+        
+        # Get prev GIT commit ID where last pushed
+        if ./ossutil cp -c oss_config -f oss://${{ secrets.OSS_bucket }}/$GIT_COMMIT_FILE ./; then
+            read GIT_COMMIT < $GIT_COMMIT_FILE
+        fi
+        
+        # Deal with changed files from last pushed
+        while read -r status name1 name2; do
+            case $status in
+                # files added or modified
+                A*|M*)
+                    echo "OSS> UPLOAD: $name1"
+                    ./ossutil cp -c oss_config -f "$name1" oss://${{ secrets.OSS_bucket }}/$name1
+                    ;;
+
+                # files deleted
+                D*)
+                    echo "OSS> DELETE: $name1"
+                    ./ossutil rm -c oss_config -f oss://${{ secrets.OSS_bucket }}/$name1
+                    ;;
+
+                # files renamed
+                R*)
+                    echo "OSS> RENAME: $name1 --> $name2"
+                    ./ossutil rm -c oss_config -f oss://${{ secrets.OSS_bucket }}/$name1
+                    ./ossutil cp -c oss_config -f "$name2" oss://${{ secrets.OSS_bucket }}/$name2
+                    ;;
+
+                # others, return error
+                *)
+                    echo "GIT> UNKNOWN: $status:$name1:$name2"
+                    exit -1
+                    ;;
+            esac
+        done < <(git diff --name-status $GIT_COMMIT HEAD)
+
+    - name:  update current git commit ID
+      run: |
+        git rev-parse HEAD > $GIT_COMMIT_FILE
+        ./ossutil cp -c oss_config -f $GIT_COMMIT_FILE oss://${{ secrets.OSS_bucket }}/
