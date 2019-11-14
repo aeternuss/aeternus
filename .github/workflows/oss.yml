@@ -16,7 +16,7 @@ jobs:
     steps:
     - name: Set timezone
       run: |
-        timedatectl set-timezone Aisa/Shanghai
+        timedatectl set-timezone Asia/Shanghai
         date
 
     - uses: actions/checkout@v1
