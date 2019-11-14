@@ -32,8 +32,6 @@ jobs:
         env:
           bucket: ${{ secrets.OSS_bucket }}
         run: |
-          set -eu
-          
           # Get prev GIT commit ID where last pushed
           if ./ossutil cp -c oss_config -f oss://$bucket/$GIT_COMMIT_FILE ./; then
               read GIT_COMMIT < $GIT_COMMIT_FILE
