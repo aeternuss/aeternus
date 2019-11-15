@@ -67,5 +67,6 @@ jobs:
           done < <(git diff --name-status $GIT_COMMIT HEAD)
 
           #  update current git commit ID
+          echo "OSS> UPLOAD: $GIT_COMMIT_FILE"
           git rev-parse HEAD > $GIT_COMMIT_FILE
           ./ossutil cp -c oss_config -f $GIT_COMMIT_FILE oss://$bucket/
