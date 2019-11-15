@@ -1,6 +1,6 @@
 # Aeternus
 
-[![Build Status](https://www.travis-ci.org/aeternuss/aeternus.svg?branch=master)](https://www.travis-ci.org/aeternuss/aeternus)
+![Build Status](https://github.com/aeternuss/aeternus/workflows/OSS/badge.svg)
 
 > Site that records personal notes.
 
