@@ -64,9 +64,9 @@ jobs:
                       exit -1
                       ;;
               esac
-          done < <(git diff --name-status $GIT_COMMIT HEAD)
+          done < <(git diff --name-status $GIT_COMMIT $GITHUB_SHA)
 
           #  update current git commit ID
           echo "OSS> UPLOAD: $GIT_COMMIT_FILE"
-          git rev-parse HEAD > $GIT_COMMIT_FILE
+          echo $GITHUB_SHA > $GIT_COMMIT_FILE
           ./ossutil cp -c oss_config -f $GIT_COMMIT_FILE oss://$bucket/
