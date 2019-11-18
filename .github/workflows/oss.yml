@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  OSSUTIL_URL: http://gosspublic.alicdn.com/ossutil/1.6.7/ossutil64
+  OSSUTIL_URL: http://gosspublic.alicdn.com/ossutil/1.6.9/ossutil64
   GIT_COMMIT_FILE: .git_commit
 
 jobs:
