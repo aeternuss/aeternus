@@ -17,19 +17,20 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Download Aliyun OSS command tool ossutil
+      - name: Download ossutil
         run: wget -O ossutil $OSSUTIL_URL && chmod 755 ossutil
 
-      - name: Update changed files
+      - name: Config ossutil
         env:
           endpoint: ${{ secrets.OSS_endpoint }}
           accessKeyID: ${{ secrets.OSS_accessKeyID }}
           accessKeySecret: ${{ secrets.OSS_accessKeySecret }}
+        run: ./ossutil config -e $endpoint -i $accessKeyID -k $accessKeySecret
+
+      - name: Update changed files
+        env:
           bucket: ${{ secrets.OSS_bucket }}
         run: |
-          # Config ossutil
-          ./ossutil config -e $endpoint -i $accessKeyID -k $accessKeySecret
-
           # Get prev GIT commit ID
           ./ossutil cp -f oss://$bucket/$GIT_COMMIT_FILE ./ || true
           if [ -f $GIT_COMMIT_FILE ]; then
@@ -66,7 +67,7 @@ jobs:
               esac
           done < <(git diff --name-status $GIT_COMMIT $GITHUB_SHA)
 
-          #  update current git commit ID
+          # Update current git commit ID
           echo "OSS> UPLOAD: $GIT_COMMIT_FILE"
           echo $GITHUB_SHA > $GIT_COMMIT_FILE
           ./ossutil cp -f $GIT_COMMIT_FILE oss://$bucket/
