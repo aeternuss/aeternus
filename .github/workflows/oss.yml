@@ -68,10 +68,5 @@ jobs:
 
           #  update current git commit ID
           echo "OSS> UPLOAD: $GIT_COMMIT_FILE"
-<<<<<<< HEAD
-          git rev-parse HEAD > $GIT_COMMIT_FILE
-          ./ossutil cp -f $GIT_COMMIT_FILE oss://$bucket/
-=======
           echo $GITHUB_SHA > $GIT_COMMIT_FILE
           ./ossutil cp -f $GIT_COMMIT_FILE oss://$bucket/
->>>>>>> d8d2ae5b6f1889e58ad1c7387fcac6cb1130a201
