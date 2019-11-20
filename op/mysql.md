@@ -4,7 +4,6 @@
 
 - --character-set-server=utf8mb4
 - --explicit-defaults-for-timestamp=true
-- --ignore-db-dir=lost+found
 
 ## Backup & Restore
 
@@ -49,11 +48,13 @@ server_id=2
 Steps:
 
 - Create replication user on master
-- Setup replication coordinates
+- Setup replication coordinates on slave
 - Check replication status
 
 ```bash
 #!/bin/bash
+
+set -ex
 
 echo "* Create replication user"
 
