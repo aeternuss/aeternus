@@ -5,23 +5,61 @@
 - --character-set-server=utf8mb4
 - --explicit-defaults-for-timestamp=true
 
-## Backup & Restore
+## Mysqldump
 
-- Verify definitions
+The mysqldump client utility performs logical backups,
+producing a set of SQL statements that can be executed to reproduce
+the original database object definitions and table data.
 
-  ```bash
-  mysqldump --all-databases --no-data --routines --events > dump-defs.sql
-  mysql < dump-defs.sql
-  ```
+### Defaults
 
-- Loading data
+Unless explicitly tell it not to, mysqldump is using the --opt flag.
 
-  ```bash
-  mysqldump --all-databases --no-create-info > dump-data.sql
-  mysql < dump-data.sql
-  ```
+The opt option is an alias for the following flags:
 
+- --add-drop-table
+- --add-locks
+- --create-options
+- --disable-keys
+- --extended-insert
+- --lock-tables
+- --quick
+- --set-charset
+  
+### With transactions
+
+MyISAM tables require locking because they don't support transactions.
+However, InnoDB supports transactions.
+
+using --single-transcation flag to instead of --lock-tables flag.
+
+```bash
+mysqldump --single-transaction --skip-lock-tables db1 db2 > dbs.sql
+```
+
+### Dump the entire database
+
+Since we'll get the internal mysql databases, which includes mysql users and privileges,
+so using the --all-databases option along with the --flush-privileges options.
+
+```bash
+# all databases
+mysqldump --single-transaction --skip-lock-tables --flush-privileges --all-databases > dbs.sql
+```
+
+### Replication
+
+There are some useful flags to use when replication is in place.
+
+- --master-data
+: Write the binary log file name and position to the output
+
+- --dump-slave
+: Include CHANGE MASTER statement that lists binary log coordinates of slave's master
+  
 ## Master - Slave
+
+Mysql replication.
 
 ### config files for the master and the slave
 
