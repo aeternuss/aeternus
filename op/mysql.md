@@ -1,9 +1,8 @@
 # MySQL
 
-## Arguments
+## Mysqld options
 
 - --character-set-server=utf8mb4
-- --explicit-defaults-for-timestamp=true
 
 ## Mysqldump
 
