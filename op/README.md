@@ -1,6 +1,7 @@
 # Operation
 
 * [Ansible](/op/ansible.md)
+* [Ansible Deploy On Ubuntu](/op/ansibleDeployOnUbuntu.md)
 * [Ansible Tips](/op/ansibleTips.md)
 * [Bind](/op/bind.md)
 * [Certbot](/op/certbot.md)
@@ -34,4 +35,3 @@
 * [Windows - Automatic Repair](/op/os/winAutomaticRepair.md)
 * [Windows - Domain Controller Ports](/op/os/winDomainControllerPorts.md)
 * [Windows - PowerShell Execution Policy](/op/os/winPowerShellExecutionPolicy.md)
-
