@@ -1,4 +1,4 @@
-# CentOS - Change Repo
+# Use Aliyun Mirror
 
 ## CentOS Base
 
@@ -41,6 +41,12 @@ setenforce 0
 
 ```bash
 yum clean all && yum makecache
+```
+
+## NPM
+
+```bash
+npm config set registry https://registry.npm.taobao.org
 ```
 
 ## Reference
