@@ -43,6 +43,7 @@
   * [README template](/dev/readmeTemplate.md)
   * [Recommended Version System](/dev/recommendedVersionSystem.md)
   * [ReStructedText](/dev/reStructedText.md)
+  * [Shell Basic](/dev/shellBasic.md)
 
 * Resource
   * [Computer Documents](/resrc/computerDocs.md)
