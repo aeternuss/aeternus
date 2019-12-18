@@ -142,3 +142,48 @@ For this to work, B must be both a master and a slave.
 
 With binary logging enabled and log_slave_updates enabled,
 updates received from A are logged by B to its binary log, and can therefore be passed on to C.
+
+## Reset MySQL or MariaDB Root Password
+
+### Stop the service
+
+```bash
+systemctl stop mysql
+```
+
+### Start the service without loading the grant tables
+
+```bash
+mysqld_safe --skip-grant-tables --skip-network &
+```
+
+### Login
+
+```bash
+mysql -uroot
+```
+
+### Set a new root password
+
+```bash
+# UPDATE mysql.user SET authentication_string = PASSWORD('MY_NEW_PASSWORD') WHERE User = 'root' AND Host = 'localhost';
+ALTER USER 'root'@'localhost' IDENTIFIED BY '<new_password>'
+FLUSH PRIVILEGES
+```
+
+### Stop and Start the database server normally
+
+```bash
+mysqladmin -u root -p shutdown
+systemctl start mysql
+```
+
+### Root Accounts Created by Default
+
+The definition of the default root@localhost user account is:
+
+```bash
+CREATE USER 'root'@'localhost' IDENTIFIED VIA unix_socket OR mysql_native_password USING 'invalid';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+GRANT PROXY ON ''@'%' TO 'root'@'localhost' WITH GRANT OPTION;
+```
