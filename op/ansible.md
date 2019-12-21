@@ -199,9 +199,9 @@ In this topic, we will demonstrate how you can install and configure an Ansible 
 In our setup,  we are going to use 1 Ansible server and 2 remote Linux nodes.
 
 ```text
-Control Node 1: RHEL 8 Server     IP: 192.168.0.108         Ansible Server
-Managed Host 1: Debian 10         IP: 192.168.0.15          Webserver
-Managed Host 2: CentOS 8          IP: 192.168.0.200	    Database Server
+Control Node 1: RHEL 8 Server     IP: 192.168.0.108     Ansible Server
+Managed Host 1: Debian 10         IP: 192.168.0.15      Webserver
+Managed Host 2: CentOS 8          IP: 192.168.0.200     Database Server
 ```
 
 A control node is Linux server that has Ansible installed on it and is used for managing remote hosts or nodes.
@@ -335,12 +335,12 @@ without necessarily having to create a playbook.
 In that case, you would require to run an ad-hoc command.
 
 ```bash
-ansible -m <MODULE_NAME> -a <MODULE_ARGS> <PATTERN>
+ansible -m <MODULE_NAME> -a <MODULE_ARGS> [PATTERN]
 ```
 
 - -m <MODULE_NAME>, module nameto execute (default=command)
 - -a <MODULE_ARGS>, module arguments
-- <PATTERN>, host pattern
+- [PATTERN], host pattern
 
 ```bash
 # example
@@ -450,7 +450,7 @@ Meta dictionary:
     "hostvars": {
       "mysql_db2": {},
       "webserver2.example.com": {},
-      "webserver1.example.com": {}, 
+      "webserver1.example.com": {},
       "mysql_db1": {}
     }
   }
