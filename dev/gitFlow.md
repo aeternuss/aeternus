@@ -1,3 +1,3 @@
 # Git Flow
 
-![Git Flow](/image/Git-Flow.png)
+![Git Flow](../image/Git-Flow.png)

@@ -204,7 +204,7 @@ and are authenticated by the local system.
 
 Domain accounts are stored in AD and are authenticated by DCs.
 
-![image](/image/windowsSecurityLogRevealed-01.png)
+![image](../image/windowsSecurityLogRevealed-01.png)
 
 ### Logon Types
 
@@ -214,12 +214,12 @@ A user can use of a domain account to log on interactively, after which
 the user accesses a shared folder through a network logon as shown in
 the diagram below.
 
-![image](/image/windowsSecurityLogRevealed-02.png)
+![image](../image/windowsSecurityLogRevealed-02.png)
 
 A user can also use a local account to log on to the same two computers
 as shown below.
 
-![image](/image/windowsSecurityLogRevealed-03.png)
+![image](../image/windowsSecurityLogRevealed-03.png)
 
 ## Account Logon Events
 
@@ -255,7 +255,7 @@ Track all logon sessions for the local computer.
 
 Event ID: `4624, 4625`
 
-![image](/image/windowsSecurityLogRevealed-04.png)
+![image](../image/windowsSecurityLogRevealed-04.png)
 
 Logon/Logoff events on a system give you a complete record of all
 attempts to access that computer, regardless of the type of account

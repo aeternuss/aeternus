@@ -5,7 +5,7 @@ existing {ip,ip6,arp,eb}\_tables infrastructure.
 
 ## Netfilter Hooks
 
-![image](/image/linuxNftables-01.png)
+![image](../../image/linuxNftables-01.png)
 
 ### Ingress hook
 
@@ -14,7 +14,7 @@ you can use from nftables.
 
 You can use this new ingress hook to filter traffic from Layer 2.
 
-![image](/image/linuxNftables-02.png)
+![image](../../image/linuxNftables-02.png)
 
 ## Basic Concepts
 
