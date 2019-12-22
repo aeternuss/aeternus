@@ -1,3 +1,0 @@
-# Terraform
-
-## Introduction to Terraform

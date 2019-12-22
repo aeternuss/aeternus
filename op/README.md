@@ -16,7 +16,7 @@
 - [OpenSSL Self Signed Cert](/op/opensslSelfSignedCert.md)
 - [Oxidized](/op/oxidized.md)
 - [Storage](/op/storage.md)
-- [Terraform](/op/terraform.md)
+- [Terraform - Getting Started](/op/terraformGettingStarted.md)
 - [Tips on Dockerfile](/op/tipsOnDockerfile.md)
 - [Use Aliyun Mirror](/op/useAliyunMirror.md)
 - [Windows Security Log Revealed](/op/windowsSecurityLogRevealed.md)
