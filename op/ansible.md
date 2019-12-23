@@ -269,18 +269,55 @@ ansible all --list-hosts
 
 We need to set up `passwordless SSH authentication` to the remote hosts.
 
-For this to happen, you need:
+On remote hosts:
+
+- create a ansible management user 'ansible'
+- set the user 'ansible' to run any command 'anywhere'(?) without password
+
+```bash
+useradd -m -s /bin/bash ansible
+password ansible
+
+cp /etc/sudoers /root/sudoers.bak
+echo "" >>/etc/sudoers
+echo "## Ansible management user" >>/etc/sudoers
+echo "ansible ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers
+```
+
+On control node:
 
 - generate an SSH key pair
-- save the public key to the remote nodes
+- save the public key to the remote nodes for user 'ansible'
 
 ```bash
 # generator an SSH key pair
 ssh-keygen
 
 # save the public key to the remote nodes
-ssh-copy-id -i <public-key> user@remote-node1
-ssh-copy-id -i <public-key> user@remote-node2
+ssh-copy-id -i <public-key> ansible@remote-node1
+ssh-copy-id -i <public-key> ansible@remote-node2
+```
+
+On remote hosts:
+
+- edit /etc/ssh/sshd_config, disable root login and password based login
+- restart sshd service
+
+```bash
+# backup
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+```
+
+```config
+PermitRootLogin no
+ChallengeResponseAuthentication no
+PasswordAuthentication no
+```
+
+Reload the ssh server:
+
+```bash
+systemctl reload ssh
 ```
 
 ## How to Configure Ansible Managed Nodes and Run ad-hoc Commands
