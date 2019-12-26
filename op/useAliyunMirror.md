@@ -21,6 +21,12 @@ swapoff -a && sed -i '/ swap / s/^/#/' /etc/fstab
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 ```
 
+## Docker-compose
+
+```url
+https://get.daocloud.io/docker/compose/releases/download/${version}/docker-compose-$(uname -s)-$(uname -m)
+```
+
 ## Kubernetes
 
 ```bash
