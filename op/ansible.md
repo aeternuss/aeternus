@@ -226,7 +226,7 @@ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python get-pip.py --user
 
 ## use aliyun source
-cat <EOF >~/.pip/pip.conf
+cat <<EOF >~/.pip/pip.conf
 [global]
 index-url = https://mirrors.aliyun.com/pypi/simple/
 
