@@ -216,7 +216,7 @@ dnf install python3
 alternatives --set python /usr/bin/python3
 ```
 
-### Setp 2: Install Pip
+### Setp 2: Setup Pip
 
 Ansible can be installed via pip.
 
@@ -224,6 +224,15 @@ Ansible can be installed via pip.
 ## run as normal user
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python get-pip.py --user
+
+## use aliyun source
+cat <EOF >~/.pip/pip.conf
+[global]
+index-url = https://mirrors.aliyun.com/pypi/simple/
+
+[install]
+trusted-host=mirrors.aliyun.com
+EOF
 ```
 
 ### Step 3: Install Ansible
