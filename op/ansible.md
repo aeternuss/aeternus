@@ -5,6 +5,8 @@ Ansible is an IT automation tool.
 It can configure systems, deploy software, and orchestrate more advanced IT tasks
 such as continuous deployments or zero downtime rolling updates.
 
+---
+
 ## Architecture
 
 ```text
@@ -86,6 +88,8 @@ roles/
     monitoring/
     fooapp/
 ```
+
+---
 
 ## Understand Core Components of Ansible
 
@@ -192,6 +196,8 @@ Configuration file is a file that contains different parameter settings that det
 
 The default configuration file is: `/etc/ansible/ansible.cfg`
 
+---
+
 ## How to install and Configure an Ansible Control Node
 
 In this topic, we will demonstrate how you can install and configure an Ansible control node on RHEL8.
@@ -287,10 +293,8 @@ On remote hosts:
 useradd -m -s /bin/bash ansible
 password ansible
 
-cp /etc/sudoers /root/sudoers.bak
-echo "" >>/etc/sudoers
-echo "## Ansible management user" >>/etc/sudoers
-echo "ansible ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers
+cp /etc/sudoers /root/sudoers-$(date +%s)
+printf "\n## Ansible management user\nansible ALL=(ALL) NOPASSWD:ALL\n" >>/etc/sudoers
 ```
 
 On control node:
@@ -328,6 +332,8 @@ Reload the ssh server:
 ```bash
 systemctl reload ssh
 ```
+
+---
 
 ## How to Configure Ansible Managed Nodes and Run ad-hoc Commands
 
@@ -424,6 +430,8 @@ This includes information about the IP address, system architecture, memory, and
 ansible -m setup all
 ```
 
+---
+
 ## How to Use Static and Dynamic Inventories in Ansible
 
 We will explain how to use static and dynamic inventory to defile groups of hosts in Ansible.
@@ -502,6 +510,8 @@ Meta dictionary:
   }
 }
 ```
+
+---
 
 ## How to Create Ansible Plays and Playbooks
 
@@ -687,6 +697,8 @@ ansible-playbook --tags "Install" <PLAYBOOK>
 ansible-playbook --skip-tags "Install" <PLAYBOOK>
 ```
 
+---
+
 ## How to Create Templates in Ansible to Create Configurations on Managed Nodes
 
 Ansible uses `Jinja2` which is a modern templating engine for Python frameworks used to generate dynamic content or expressions.
@@ -744,6 +756,8 @@ You can also combine the loop with `if-else` statement:
   {% endif %}
 {% endfor %}
 ```
+
+---
 
 ## How to Work with Ansible Variables and Facts
 
@@ -824,6 +838,145 @@ chmod +x date_time.fact
 ```
 
 Append the fact filename to the `ansible_local` variable which stores all the custom facts.
+
+---
+
+## How to Create and Download Role on Ansible Galaxy and Use Them
+
+In Ansible, roles are used for breaking down playbooks into resuable files that can be used across several other instances where the need arises to perform a similar task.
+
+### Create an Ansible Role
+
+To Create a role in Ansible:
+
+```bash
+ansible-galaxy role init <role_name>
+```
+
+The directory structure of the role:
+
+```tree
+role/
+├── README.md
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── tasks
+│   └── main.yml
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+```
+
+Call the role in a playbook file:
+
+```yaml
+---
+- hosts: servers
+  include_role:
+    name: role_name
+  vars:
+    rolevar1: value
+    rolevar2: value
+```
+
+### Installing a Role from Ansible Galaxy
+
+Roles play a crucial role in sharing code with other users in the Ansible community using the Ansible Galaxy platform.
+
+To search a role in Ansible Galaxy:
+
+```bash
+ansible-galaxy search <role>
+
+## to gather more information about a role
+ansible-galaxy info <role>
+
+## to list the roles installed
+ansible-galaxy list
+```
+
+To install a role:
+
+```bash
+ansible-galaxy install <role>
+```
+
+The role is downloaded and extracted to the default roles directory located at `/etc/ansible/roles`.
+
+The role can thereafter be called in a playbook:
+
+```bash
+---
+- hosts: servers
+
+  - include_role:
+      name: role_name
+    vars:
+      rolevar1: value
+      rolevar2: value
+```
+
+---
+
+## How to Use Ansible Vault in Playbooks to Protect Sensitive Data
+
+Ansible vault can encrypt variables, or even entire files and YAML playbooks.
+
+### How to Create an Encrypted File in Ansible
+
+Use the `ansible-vault` command to create an encrypted file:
+
+```bash
+## create an encrypted file
+ansible-vault create <filename>
+
+## encrypt an unencrypted file
+ansible-vault encrypt <unencrypted-file>
+
+## view an encrypted file
+ansible-vault view <encrypted-file>
+
+## edit an ecrypted file
+ansible-vault edit <encrypted-file>
+
+## decrypt an encrypted file
+ansible-vault decrypt <encrypted-file>
+```
+
+### How to Change Ansible Vault Password
+
+To change the Ansible vault password:
+
+```bash
+ansible-vault rekey <encrypted-file>
+```
+
+### How to Encrypt Specific Variables in Ansible
+
+To encrypt certain variables:
+
+```bash
+ansible-vault encrypt_string
+```
+
+### How to Decrypt a Playbook File during Runtime
+
+```bash
+ansible-playbook --ask-vault-pass play.yml
+
+## using a separate password file
+ansible-playbook --vault-password-file <password-file> play.yml
+```
+
+---
 
 ## Reference
 
