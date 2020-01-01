@@ -18,6 +18,7 @@
   - [OpenSSL Self Signed Cert](/op/opensslSelfSignedCert.md)
   - [Oxidized](/op/oxidized.md)
   - [Storage](/op/storage.md)
+  - [Supervisor](/op/supervisor.md)
   - [Terraform - Getting Started](/op/terraformGettingStarted.md)
   - [Tips on Dockerfile](/op/tipsOnDockerfile.md)
   - [Use Aliyun Mirror](/op/useAliyunMirror.md)
