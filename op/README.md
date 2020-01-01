@@ -10,6 +10,7 @@
 - [Elasticsearch](/op/elasticsearch.md)
 - [Exchange Audit](/op/exchangeAudit.md)
 - [Graylog Configuration](/op/graylogConfiguration.md)
+- [Apache Httpd Server](/op/httpd.md)
 - [Jumpserver](/op/jumpserver.md)
 - [Mysql](/op/mysql.md)
 - [OpenSSL Multiple Domain Cert](/op/opensslMultiDomainCert.md)
