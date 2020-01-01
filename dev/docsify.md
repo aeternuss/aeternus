@@ -114,3 +114,23 @@ Set coverpage to true, and create a `_coverpage.md`:
 
 ![color](#f0f0f0)
 ```
+
+## Plugins
+
+### Full text search
+
+```html
+<!-- index.html -->
+
+<script>
+  window.$docsify = {
+    search: 'auto' // default
+  }
+</script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+<script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+```
+
+## Reference
+
+- [Docsify](https://docsify.js.org/)
