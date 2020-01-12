@@ -23,19 +23,7 @@
   - [Terraform - Getting Started](/op/terraformGettingStarted.md)
   - [Tips on Dockerfile](/op/tipsOnDockerfile.md)
   - [Use Aliyun Mirror](/op/useAliyunMirror.md)
-  - [Windows Security Log Revealed](/op/windowsSecurityLogRevealed.md)
   - [Zabbix](/op/zabbix.md)
-  - [CentOS - Cleanup Old Kernels](/op/os/centosCleanupOldKernels.md)
-  - [CentOS - Disable IPv6](/op/os/centosDisableIPv6.md)
-  - [CentOS - Reset Root Password](/op/os/centosResetRootPassword.md)
-  - [Linux - IPMI](/op/os/linuxIPMI.md)
-  - [Linux - Nftables](/op/os/linuxNftables.md)
-  - [Linux - Screen Resolution](/op/os/linuxScreenResolution.md)
-  - [Linux - TimeZone](/op/os/linuxTimeZone.md)
-  - [OS - Get External IPaddr](/op/os/osGetExternalIPAddr.md)
-  - [Windows - Automatic Repair](/op/os/winAutomaticRepair.md)
-  - [Windows - Domain Controller Ports](/op/os/winDomainControllerPorts.md)
-  - [Windows - PowerShell Execution Policy](/op/os/winPowerShellExecutionPolicy.md)
 
 - AWS
 
@@ -58,6 +46,22 @@
   - [Inject Data Into App](/k8s/injectDataIntoApp.md)
   - [Kubernetes](/k8s/kubernetes.md)
   - [Projected Volume](/k8s/projectedVolume.md)
+
+- OS
+
+  - [CentOS - Cleanup Old Kernels](/os/centosCleanupOldKernels.md)
+  - [CentOS - Disable IPv6](/os/centosDisableIPv6.md)
+  - [CentOS - Reset Root Password](/os/centosResetRootPassword.md)
+  - [Linux - IPMI](/os/linuxIPMI.md)
+  - [Linux - Nftables](/os/linuxNftables.md)
+  - [Linux - Screen Resolution](/os/linuxScreenResolution.md)
+  - [Linux - Systemd](/os/linuxSystemd.md)
+  - [Linux - TimeZone](/os/linuxTimeZone.md)
+  - [OS - Get External IPaddr](/os/osGetExternalIPAddr.md)
+  - [Windows - Automatic Repair](/os/winAutomaticRepair.md)
+  - [Windows - Domain Controller Ports](/os/winDomainControllerPorts.md)
+  - [Windows - PowerShell Execution Policy](/os/winPowerShellExecutionPolicy.md)
+  - [Windows - Security Log Revealed](/os/winSecurityLogRevealed.md)
 
 - Resource
 

@@ -1,0 +1,15 @@
+# OS
+
+- [CentOS - Cleanup Old Kernels](/os/centosCleanupOldKernels.md)
+- [CentOS - Disable IPv6](/os/centosDisableIPv6.md)
+- [CentOS - Reset Root Password](/os/centosResetRootPassword.md)
+- [Linux - IPMI](/os/linuxIPMI.md)
+- [Linux - Nftables](/os/linuxNftables.md)
+- [Linux - Screen Resolution](/os/linuxScreenResolution.md)
+- [Linux - Systemd](/os/linuxSystemd.md)
+- [Linux - TimeZone](/os/linuxTimeZone.md)
+- [OS - Get External IPaddr](/os/osGetExternalIPAddr.md)
+- [Windows - Automatic Repair](/os/winAutomaticRepair.md)
+- [Windows - Domain Controller Ports](/os/winDomainControllerPorts.md)
+- [Windows - PowerShell Execution Policy](/os/winPowerShellExecutionPolicy.md)
+- [Windows - Security Log Revealed](/os/winSecurityLogRevealed.md)
