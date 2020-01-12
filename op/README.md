@@ -1,8 +1,6 @@
 # Operation
 
 - [Ansible](/op/ansible.md)
-- [Ansible Deploy On Ubuntu](/op/ansibleDeployOnUbuntu.md)
-- [Ansible Tips](/op/ansibleTips.md)
 - [Bind](/op/bind.md)
 - [Certbot](/op/certbot.md)
 - [Cluster](/op/cluster.md)
@@ -10,7 +8,7 @@
 - [Elasticsearch](/op/elasticsearch.md)
 - [Exchange Audit](/op/exchangeAudit.md)
 - [Graylog Configuration](/op/graylogConfiguration.md)
-- [Apache Httpd Server](/op/httpd.md)
+- [Httpd Server](/op/httpd.md)
 - [Jumpserver](/op/jumpserver.md)
 - [Mysql](/op/mysql.md)
 - [OpenSSL Multiple Domain Cert](/op/opensslMultiDomainCert.md)

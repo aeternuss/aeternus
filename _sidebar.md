@@ -2,8 +2,6 @@
 
 - Operator
   - [Ansible](/op/ansible.md)
-  - [Ansible Deploy On Ubuntu](/op/ansibleDeployOnUbuntu.md)
-  - [Ansible Tips](/op/ansibleTips.md)
   - [Bind](/op/bind.md)
   - [Certbot](/op/certbot.md)
   - [Cluster](/op/cluster.md)
