@@ -1,6 +1,7 @@
 <!--- _sidebar.md --->
 
 - Operator
+
   - [Ansible](/op/ansible.md)
   - [Bind](/op/bind.md)
   - [Certbot](/op/certbot.md)
@@ -39,7 +40,12 @@
   - [Windows - Domain Controller Ports](/op/os/winDomainControllerPorts.md)
   - [Windows - PowerShell Execution Policy](/op/os/winPowerShellExecutionPolicy.md)
 
+- AWS
+
+  - [EC2](/aws/ec2.md)
+
 - Development
+
   - [Dockerfile README Template](/dev/dockerfileReadmeTemplate.md)
   - [Docsify](/dev/docsify.md)
   - [Github Actions](/dev/githubActions.md)
@@ -50,6 +56,7 @@
   - [Shell Basic](/dev/shellBasic.md)
 
 - Resource
+
   - [Documents](/resrc/documents.md)
   - [Softwares](/resrc/softwares.md)
   - [Useful Sites](/resrc/usefulSites.md)
