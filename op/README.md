@@ -1,4 +1,4 @@
-# Operation
+# Operations
 
 - [Ansible](/op/ansible.md)
 - [Bind](/op/bind.md)
@@ -23,10 +23,6 @@
 - [Use Aliyun Mirror](/op/useAliyunMirror.md)
 - [Windows Security Log Revealed](/op/windowsSecurityLogRevealed.md)
 - [Zabbix](/op/zabbix.md)
-- [K8S - Configure Pods And Containers](/op/k8s/configurePodsAndContainers.md)
-- [K8S - Inject Data Into App](/op/k8s/injectDataIntoApp.md)
-- [K8S - Kubernetes](/op/k8s/kubernetes.md)
-- [K8S - Projected Volume](/op/k8s/projectedVolume.md)
 - [CentOS - Cleanup Old Kernels](/op/os/centosCleanupOldKernels.md)
 - [CentOS - Disable IPv6](/op/os/centosDisableIPv6.md)
 - [CentOS - Reset Root Password](/op/os/centosResetRootPassword.md)

@@ -1,7 +1,8 @@
 <!--- _navbar.md --->
 
 - [Home](/)
-- [Operator](/op/)
+- [Operations](/op/)
 - [AWS](/aws/)
 - [Development](/dev/)
+- [Kubernetes](/k8s/)
 - [Resource](/resrc/)
