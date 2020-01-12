@@ -1,6 +1,6 @@
-# FIle: oss.yml
+# FIle: aeternus.yml
 # Author: aeternus <aeternus@aliyun.com>
-# Date: 2019-11-18
+# Date: 2020-01-12
 # Description:
 #   update changed files in Aliyun OSS bucket.
 #   use `git diff` get changed files
@@ -8,7 +8,7 @@
 # GIT_COMMIT_FILE:
 #   file contains git commit id when prev updated
 
-name: OSS
+name: Aeternus.cc
 
 on:
   push:
@@ -44,6 +44,7 @@ jobs:
           ./ossutil cp -f oss://$bucket/$GIT_COMMIT_FILE ./ || true
           if [ -f $GIT_COMMIT_FILE ]; then
               read GIT_COMMIT < $GIT_COMMIT_FILE
+              echo "Last Commit ID: ${GIT_COMMIT}"
           fi
           
           # Update changed files
