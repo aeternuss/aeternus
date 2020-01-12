@@ -3,6 +3,7 @@
 - [Ansible](/op/ansible.md)
 - [Bind](/op/bind.md)
 - [Certbot](/op/certbot.md)
+- [Cloud Init](/op/cloudInit.md)
 - [Cluster](/op/cluster.md)
 - [Docker](/op/docker.md)
 - [Elasticsearch](/op/elasticsearch.md)
