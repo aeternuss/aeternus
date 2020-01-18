@@ -976,16 +976,253 @@ ansible-playbook --ask-vault-pass play.yml
 ansible-playbook --vault-password-file <password-file> play.yml
 ```
 
-## Tips
+## Features
 
-### Local Connection
+### Error Handling In Playbooks
+
+#### Ignoring Failed Commands
+
+Generally playbooks will stop executing any more steps on a host that has a task fail. Sometimes, though, you want to continueon.
 
 ```yaml
-- hosts: 127.0.0.1
-  connection: local
-  name: ...
-  ...
+- name: this will not be counted as a failure
+  command: /bin/false
+  ignore_errors: yes
 ```
+
+#### Resetting Unreachable Hosts
+
+Connection failures set hosts as `‘UNREACHABLE’`, which will remove them from the list of active hosts for the run. To recover from these issues you can use `meta: clear_host_errors` to have all currently flagged hosts reactivated, so subsequent tasks can try to use them again.
+
+#### Handlers and Failure
+
+When a task fails on a host, handlers which were previously notified will not be run on that host.
+
+You can change this behavior with the `--force-handlers` command-line option, or by including `force_handlers: True` in a play, or `force_hanlders = True` in ansible.cfg.
+
+#### Controlling What Defines Failure
+
+Ansible lets you define what "failure" means in each task using the `failed_when` conditional.
+
+```yaml
+- name: Fail task when both files are identical
+  raw: diff foo/file1 bar/file2
+  register: diff_cmd
+  failed_when: diff_cmd.rc == 0 or diff_cmd.rc >= 2
+
+- name: example of many failed_when conditions with OR
+  shell: "./myBinary"
+  register: ret
+  failed_when: >
+    ("No such file or directory" in ret.stdout) or
+    (ret.stderr != '') or
+    (ret.rc == 10)
+```
+
+#### Overriding The Changed Result
+
+When a shell/command or other module runs it will typically report "changed" status based on whether it thinks it affected machine state.
+
+```yaml
+tasks:
+
+  - shell: /usr/bin/billybass --mode="take me to the river"
+    register: bass_result
+    changed_when: "bass_result.rc != 2"
+
+  # this will never report 'changed' status
+  - shell: wall 'beep'
+    changed_when: False
+
+  - command: /bin/fake_command
+    register: result
+    ignore_errors: True
+    changed_when:
+      - '"ERROR" in result.stderr'
+      - result.rc == 2
+```
+
+#### Aborting the play
+
+Sometimes it's desirable to abort the entire play on failure, not just skip remaining tasks for a host.
+
+`any_errors_fatal` can be set at the play or block level.
+
+```yaml
+- hosts: somehosts
+  any_errors_fatal: true
+  roles:
+    - myrole
+
+- hosts: somehosts
+  tasks:
+    - block:
+        - include_tasks: mytasks.yml
+      any_errors_fatal: true
+```
+
+#### Using blocks
+
+Most of what you can apply to a single task (with the exception of loops) can be applied at the Blocks level.
+
+```yaml
+tasks:
+- name: Handle the error
+  block:
+    - debug:
+        msg: 'I execute normally'
+    - name: i force a failure
+      command: /bin/false
+    - debug:
+        msg: 'I never execute, due to the above task failing, :-('
+  rescue:
+    - debug:
+        msg: 'I caught an error, can do stuff here to fix it, :-)'
+```
+
+This will ‘revert’ the failed status of the outer block task for the run and the play will continue as if it had succeeded.
+
+### Delegation, Rolling Updates, and Local Actions
+
+#### Rolling Update Batch Size
+
+By defualt, Ansible will try to manage all of the machines referenced in a play in parallel. For a rolling update use case, you can define how many hosts Ansible should manage at a single time by using the `serial` keyword.
+
+```yaml
+---
+- name: test play
+  hosts: webservers
+  serial: 2
+  gather_facts: False
+
+  tasks:
+    - name: task one
+      command: hostname
+    - name: task two
+      command: hostname
+```
+
+The `serial` keyword can also be specified as a percentage, which will be applied to the total number of hosts in a play, in order to determine the number of hosts per pass:
+
+```yaml
+---
+- name: test play
+  hosts: webservers
+  serial: "30%"
+```
+
+As of Ansible 2.2, the batch sizes can be specified as a list, as follows:
+
+```yaml
+---
+- name: test play
+  hosts: webservers
+  serial:
+    - 1
+    - 5
+    - 10
+```
+
+In the above example, the first batch would contain a single host, the next would contain 5 hosts, and (if there are any hosts left), every following batch would contain 10 hosts until all available hosts are used.
+
+It is also possible to list multiple batch sizes as percentages:
+
+```yaml
+---
+- name: test play
+  hosts: webservers
+  serial:
+    - "10%"
+    - "20%"
+    - "100%"
+```
+
+You can also mix and match the values:
+
+```yaml
+---
+- name: test play
+  hosts: webservers
+  serial:
+    - 1
+    - 5
+    - "20%"
+```
+
+#### Delegation
+
+If you want to perform a task on one host with reference to other hosts, use the `‘delegate_to’` keyword on a task.
+
+```yaml
+- hosts: webservers
+  serial: 5
+
+  tasks:
+    - name: take out of load balancer pool
+      command: /usr/bin/take_out_of_pool {{ inventory_hostname }}
+      delegate_to: 127.0.0.1
+
+    - name: actual steps would go here
+      yum:
+        name: acme-web-stack
+        state: latest
+
+    - name: add back to load balancer pool
+      command: /usr/bin/add_back_to_pool {{ inventory_hostname }}
+      delegate_to: 127.0.0.1
+```
+
+There is also a shorthand syntax that you can use on a per-task basis: `‘local_action’`.
+
+```yaml
+---
+# ...
+
+  tasks:
+    - name: take out of load balancer pool
+      local_action: command /usr/bin/take_out_of_pool {{ inventory_hostname }}
+
+# ...
+
+    - name: add back to load balancer pool
+      local_action: command /usr/bin/add_back_to_pool {{ inventory_hostname }}
+```
+
+#### Delegated Facts
+
+By default, any fact gathered by a delegated task are assigned to the inventory_hostname (the current host) instead of the host which actually produced the facts (the delegated to host). The directive delegate_facts may be set to True to assign the task’s gathered facts to the delegated host instead of the current one.:
+
+```yaml
+---
+- hosts: app_servers
+
+  tasks:
+    - name: gather facts from db servers
+      setup:
+      delegate_to: "{{item}}"
+      delegate_facts: True
+      loop: "{{groups['dbservers']}}"
+```
+
+#### Run Once
+
+In some cases there may be a need to only run a task one time for a batch of hosts. This can be achieved by configuring “run_once” on a task:
+
+```yaml
+---
+# ...
+
+  tasks:
+
+    # ...
+
+    - command: /opt/application/upgrade_db.py
+      run_once: true
+
+    # ...
+```
+
+## Tips
 
 ### When
 
@@ -1008,41 +1245,6 @@ ansible-playbook --vault-password-file <password-file> play.yml
 - name: run when step one changed
   ...
   when: step_one.changed
-```
-
-### Blocks
-
-Blocks allow for logical grouping of tasks and in play error handling.
-
-```yaml
-tasks:
-- name: Install, configure, and start Apache
-  block:
-    - name: install httpd and memcached
-      yum:
-        name: "{{ item }}"
-        state: present
-      loop:
-        - httpd
-        - memcached
-    - name: apply the foo config template
-      template:
-        src: templates/src.j2
-        dest: /etc/foo.conf
-    - name: start service bar and enable it
-      service:
-        name: bar
-        state: started
-        enabled: True
-  when: ansible_facts['distribution'] == 'CentOS'
-```
-
-### changed_when
-
-```yaml
-- name: tasks always no change
-  ...
-  changed_when: false
 ```
 
 ---
